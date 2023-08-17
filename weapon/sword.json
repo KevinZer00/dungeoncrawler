@@ -1,0 +1,87 @@
+{
+  "frames": {
+    "weapon_red_gem_sword_f0.png": {
+      "frame": {
+        "x": 0,
+        "y": 0,
+        "w": 10,
+        "h": 21
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 10,
+        "h": 21
+      },
+      "sourceSize": {
+        "w": 10,
+        "h": 21
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    "weapon_red_gem_sword_f1.png": {
+      "frame": {
+        "x": 0,
+        "y": 21,
+        "w": 17,
+        "h": 17
+      },
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": {
+        "x": 1,
+        "y": 2,
+        "w": 17,
+        "h": 17
+      },
+      "sourceSize": {
+        "w": 21,
+        "h": 21
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    "weapon_red_gem_sword_f2.png": {
+      "frame": {
+        "x": 10,
+        "y": 0,
+        "w": 21,
+        "h": 10
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 21,
+        "h": 10
+      },
+      "sourceSize": {
+        "w": 21,
+        "h": 10
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    }
+  },
+  "meta": {
+    "app": "http://free-tex-packer.com",
+    "version": "0.6.7",
+    "image": "sword.png",
+    "format": "RGBA8888",
+    "size": {
+      "w": 31,
+      "h": 38
+    },
+    "scale": 1
+  }
+}
