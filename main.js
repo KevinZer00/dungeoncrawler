@@ -1,12 +1,17 @@
 class UIScene extends Phaser.Scene {
   constructor(knight, health) {
-    super();
+    super({key: 'UIScene'});
     this.knight = knight;
     this.health = health;
     this.chestsFound = 0;
     this.totalChests = 4;
 
   }
+
+  init(data) {
+    this.knight = data.knight;
+    this.health = data.health;
+}
 
   preload()
   {
@@ -33,6 +38,7 @@ class UIScene extends Phaser.Scene {
     
       //health system 
     this.hearts = this.add.group();
+    this.hearts.clear(true, true);
     for (let i = 0; i < this.knight.health; i++) 
     {
       let heart = this.add.sprite(10 + i * 50, 10, 'lives', 'ui_heart_full.png');
@@ -42,7 +48,7 @@ class UIScene extends Phaser.Scene {
       this.hearts.add(heart);
     }
 
-  
+  /*
     this.chestsText = this.add.text(this.cameras.main.width / 2, 10, 'Chests Found: ' + this.chestsFound, {
       fontFamily: 'Dungeon',
       fontSize: 50,
@@ -55,7 +61,7 @@ class UIScene extends Phaser.Scene {
     {
       this.chestsFound++;
     })
-    
+  */
 
   }
 
@@ -79,8 +85,9 @@ class UIScene extends Phaser.Scene {
       this.prevHealth = this.knight.health;
     }
 
-    this.chestsText.setText('Chests Found: ' + this.chestsFound);
+    //this.chestsText.setText('Chests Found: ' + this.chestsFound);
   }
+
 }
 
 
@@ -95,22 +102,27 @@ class MyGame extends Phaser.Scene {
       menuDiv.setAttribute('id', 'menu');
     
       let menuText = '';
+      let menuLink = '';
       switch (chestNum) {
         case 1:
-          menuText = '<p>You have opened chest 1!</p>';
+          menuText = '<p>You have opened chest 1!</p> This is a project that was built for a client. It is a website for a personal trainer. It utilizes primarily HTML and CSS for the design and layout and JavaScript for the email functionality. The site also integrates the Calendly widget to allow users to view/book available appointments. It is responsive for a wide variety of screen sizes.<p>'
+          menuLink = '<p><a href = "https://pushpastlimits.com/" target = "_blank">Push Past Limits</a><p>'        
           break;
         case 2:
-          menuText = '<p>You have opened chest 2!</p>';
+          menuText = '<p>You have opened chest 2!</p> This project is a website for a fictional robotics company. It has a futuristic theme and relies heavily on HTML and CSS for the design. The main highlight of this project is its implementation of the Three.JS framework. It features a fully rendered 3D model with proper lighting/shading and can be fully rotated left/right. It is responsive for a wide variety of screen sizes.<p>';
+          menuLink = '<p><a href = "https://https://kevinzer00.github.io/YUGEN-site/" target = "_blank">YUGEN Robotics</a><p>'
           break;
         case 3:
-          menuText = '<p>You have opened chest 3!</p>';
+          menuText = '<p>You have opened chest 3!</p> This project is an FFMI (Fat-Free Mass Index) and BMI (Body Mass Index) calculator site built with React. It accepts various user parameters such as height and weight, and generates the corresponding values based on widely accepted FFMI/BMI formulas. The site also integrates responsive charts via Chart.js that plots the user FFMI/BMI on two different graphs in relation to the average statistics in America.';
+          menuLink = '<p><a href = "https://ffmibmicalculator.netlify.app/" target = "_blank">FFMI and BMI Calculator</a><p>'
           break;
         case 4:
-          menuText = '<p>You have opened chest 4!</p>';
+          menuText = '<p>You have opened chest 4!</p> This is the dungeon crawler game you are playing! This portfolio was built using Phaser.JS, a framework designed specifically for 2D games! In this project, there are collisions, enemy logics, player damage, player health and player movement controls implemented. The assets are obtained through the itch.io asset store.';
+          menuLink = '<p><a href = "https://github.com/KevinZer00/dungeoncrawler.git/" target = "_blank">Dungeon Crawler Github Repository</a><p>'
           break;
         // Add more cases for additional chests
       }
-      menuDiv.innerHTML = menuText + '<button id="close-button" class="close-button">Close</button>';
+      menuDiv.innerHTML = menuText + menuLink + '<button id="close-button" class="close-button">Close</button>';
     
       document.body.appendChild(menuDiv);
     
@@ -131,26 +143,43 @@ class MyGame extends Phaser.Scene {
   
   });
 
-
-   //define the game over status 
-   this.gameOver = function()
-   {
-     const gameOverDiv = document.createElement('div');
-     gameOverDiv.setAttribute('id', 'game-over');
-     gameOverDiv.innerHTML = '<p>Game Over</p><button id = "restart-button" class = "restart-button">Restart</button>';
-     document.body.appendChild(gameOverDiv);
- 
-     this.scene.pause();
- 
-     const restartButton = document.getElementById('restart-button');
-     restartButton.addEventListener('click', () => 
-     {
-       this.scene.restart();
-       gameOverDiv.remove();
-     })
-   };
- 
+this.gameOver = function()
+{
+  // Check if the gameOverDiv already exists and remove it
+  const existingGameOverDiv = document.getElementById('game-over');
+  if (existingGameOverDiv) {
+    existingGameOverDiv.remove();
   }
+
+  const gameOverDiv = document.createElement('div');
+  gameOverDiv.setAttribute('id', 'game-over');
+  gameOverDiv.innerHTML = '<p>You have fallen!</p><p>Thankfully, the Light has blessed you with infinite respawns because it is very insistent that you need to open every chest! You may select "Restart" to restart the level.<p> <button id="restart-button" class="restart-button">Restart</button>';
+  document.body.appendChild(gameOverDiv);
+
+  this.scene.pause();
+
+  const restartButton = document.getElementById('restart-button');
+  
+  // Remove any existing event listener
+  restartButton.removeEventListener('click', this.restartGame);
+
+  // Add the event listener
+  restartButton.addEventListener('click', this.restartGame.bind(this));
+};
+
+// Separate restart logic into its own function
+this.restartGame = function() {
+  game.destroy(true);
+  game = new Phaser.Game(config);
+  const gameOverDiv = document.getElementById('game-over');
+  if (gameOverDiv) {
+    gameOverDiv.remove();
+  }
+};
+
+ 
+  
+}
 
 
 preload() 
@@ -216,6 +245,8 @@ create()
   console.log(this.scene.key);
     console.log(this.cache.tilemap.get('tilemap'));
     console.log(this.cache.tilemap.has('tilemap'));
+
+
 
     
     const map = this.make.tilemap({key: 'tilemap'});
@@ -402,6 +433,10 @@ create()
     this.knight.body.offset.y = 6;
 
     this.knight.health = 5;
+
+
+    this.scene.stop('UIScene'); // Stop the previous instance
+    this.scene.launch('UIScene', { knight: this.knight, health: this.knight.health }); // Launch a new instance
 
     this.physics.add.collider(this.knight, wallsLayer);
    this.anims.create
@@ -1031,7 +1066,7 @@ create()
 
   this.knightHit = false;
 
-  this.scene.add('ui', new UIScene(this.knight, this.knight.health), true);
+  // this.scene.add('ui', new UIScene(this.knight, this.knight.health), true);
 
   this.knight.isBeingHit = false;
 
@@ -2614,5 +2649,5 @@ const config = {
   }
 };
 
-const game = new Phaser.Game(config);
+let game = new Phaser.Game(config);
 

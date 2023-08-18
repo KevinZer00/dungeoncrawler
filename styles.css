@@ -13,22 +13,25 @@ body, html {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 300px;
-    height: 200px;
+    width: 25%;
+    height: 60%;
     background-color: #FDF5E6;
     border: 5px solid #8B5A2B;
     border-radius: 10px;
     box-shadow: 2px 2px 2px #000;
     overflow: auto;
-    padding: 10px;
+    padding: 15px;
     font-family: 'Dungeon';
-    font-size: 20px;
+    font-size: 30px;
+    text-align: center;
+    line-height: 1.2;
+    overflow-y: hidden;
 }
 
 
 #close-button {
     font-family: 'Dungeon';
-    font-size: 20px;
+    font-size: 40px;
     color: #fff;
     background-color: #8B4513;
     padding: 5px 10px;
@@ -56,21 +59,28 @@ body, html {
     border: 5px solid #8B5A2B;
     border-radius: 10px;
     box-shadow: 2px 2px 2px #000;
-    overflow: auto;
-    padding: 10px;
+    padding: 15px;
     font-family: 'Dungeon';
+    overflow-y: hidden;
   }
 
-  #description {
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    font-size: 40px;
+  #description1 {
+    font-size: 36px;
+    text-align: center;
+    line-height: 1.2;
   }
+
+  #description2 {
+    margin-top: -2em;
+    font-size: 36px;
+    text-align: center;
+    line-height: 1.2;
+    font-weight: bold;
+  }
+
 
   #begin-button {
     margin:auto;
-    margin-top: 5em;
     display:flex;
     width:10em;
     justify-content:center;
@@ -92,15 +102,18 @@ body, html {
     top:50%;
     left:50%;
     transform:translate(-50%, -50%);
-    width:800px;
-    height:600px;
+    width:400px;
+    height:500px;
     background-color: #FDF5E6;
     border: 5px solid #8B5A2B;
     border-radius: 10px;
     box-shadow: 2px 2px 2px #000;
-    overflow: auto;
-    padding: 10px;
+    overflow-y: hidden;
+    padding: 15px;
     font-family: 'Dungeon';
+    font-size: 36px;
+    text-align: center;
+    line-height: 1.2
   }
 
   #game-over h1 {
@@ -110,9 +123,8 @@ body, html {
 
   #restart-button {
     margin:auto;
-    margin-top: 5em;
     display:flex;
-    width:10em;
+    width:5em;
     justify-content:center;
     font-family: 'Dungeon';
     font-size: 40px;
