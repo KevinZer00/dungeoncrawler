@@ -17,6 +17,18 @@ class UIScene extends Phaser.Scene {
   {
     //load health lives atlas 
     this.load.atlas('lives', 'UI/lives.png', 'UI/lives.json');
+
+    //load the email icon
+    this.load.image('emailIcon', 'email.png');
+
+    //load the Github icon
+    this.load.image('githubIcon', 'github.png');
+
+    //load the LinkedIn icon
+    this.load.image('linkedinIcon', 'linkedin.png');
+
+    //load the Discord icon
+    this.load.image('discordIcon', 'discord.png');
   }
 
   create()
@@ -47,6 +59,75 @@ class UIScene extends Phaser.Scene {
       heart.fixedToCamera = true;
       this.hearts.add(heart);
     }
+
+    let gameWidth = this.sys.game.config.width;
+    let gameHeight = this.sys.game.config.height;
+
+    let somePadding = 50;
+
+    let emailIcon = this.add.sprite(gameWidth - somePadding, somePadding, 'emailIcon').setOrigin(1, 0);
+    emailIcon.y = 10; 
+    emailIcon.x = gameWidth - 30;
+    emailIcon.on('pointerdown', () => this.showContactMenu());
+    emailIcon.setScale(0.25);
+    emailIcon.setInteractive();
+    emailIcon.on('pointerover', () => {
+      this.sys.game.canvas.style.cursor = 'pointer';
+    });
+
+    emailIcon.on('pointerout', () => {
+      this.sys.game.canvas.style.cursor = 'default';
+    });
+
+    let githubIcon = this.add.sprite(gameWidth - somePadding, somePadding, 'githubIcon').setOrigin(1, 0);
+    githubIcon.y = 15; 
+    githubIcon.x = gameWidth - 100;
+    githubIcon.setScale(0.20);
+    githubIcon.setInteractive();
+    githubIcon.on('pointerdown', function () {
+      window.open('https://github.com/KevinZer00/', '_blank');
+    });
+    githubIcon.on('pointerover', () => {
+      this.sys.game.canvas.style.cursor = 'pointer';
+    });
+
+    githubIcon.on('pointerout', () => {
+      this.sys.game.canvas.style.cursor = 'default';
+    });
+
+    let linkedinIcon = this.add.sprite(gameWidth - somePadding, somePadding, 'linkedinIcon').setOrigin(1, 0);
+    linkedinIcon.y = 15; 
+    linkedinIcon.x = gameWidth - 160;
+    linkedinIcon.setScale(0.20);
+    linkedinIcon.setInteractive();
+    linkedinIcon.on('pointerover', () => {
+      this.sys.game.canvas.style.cursor = 'pointer';
+    });
+
+    linkedinIcon.on('pointerout', () => {
+      this.sys.game.canvas.style.cursor = 'default';
+    });
+
+    let discordIcon = this.add.sprite(gameWidth - somePadding, somePadding, 'discordIcon').setOrigin(1, 0);
+    discordIcon.y = 10; 
+    discordIcon.x = gameWidth - 220;
+    discordIcon.setScale(0.25);
+    discordIcon.setInteractive();
+    discordIcon.on('pointerdown', function () {
+      window.open('https://discordapp.com/users/92475534600073216', '_blank');
+    });
+    discordIcon.on('pointerover', () => {
+      this.sys.game.canvas.style.cursor = 'pointer';
+    });
+
+    discordIcon.on('pointerout', () => {
+      this.sys.game.canvas.style.cursor = 'default';
+    });
+
+
+
+    
+
 
   /*
     this.chestsText = this.add.text(this.cameras.main.width / 2, 10, 'Chests Found: ' + this.chestsFound, {
@@ -88,6 +169,33 @@ class UIScene extends Phaser.Scene {
     //this.chestsText.setText('Chests Found: ' + this.chestsFound);
   }
 
+  showContactMenu() {
+    // Create a div for the contact menu
+    const menuDiv = document.createElement('div');
+    menuDiv.setAttribute('id', 'contact-menu');
+
+    // HTML content for the contact menu
+    menuDiv.innerHTML = `
+        <p>Want to send me an email? Let's chat!</p>
+        <a href="mailto:kevinyuzer0@gmail.com">Send an Email</a><p>
+        <button id="closeContactMenu">Close</button>
+    `;
+
+    // Append the contact menu to the document body
+    document.body.appendChild(menuDiv);
+
+    // Add an event listener to the close button to remove the menu and resume the game
+    const closeButton = document.getElementById('closeContactMenu');
+    closeButton.addEventListener('click', () => {
+        menuDiv.remove();
+        this.scene.resume('MyGame');  // Resume the game if it was paused
+    });
+
+    // Pause the game while the contact menu is active
+    this.scene.pause('MyGame');
+}
+
+
 }
 
 
@@ -110,14 +218,14 @@ class MyGame extends Phaser.Scene {
           break;
         case 2:
           menuText = '<p>You have opened chest 2!</p> This project is a website for a fictional robotics company. It has a futuristic theme and relies heavily on HTML and CSS for the design. The main highlight of this project is its implementation of the Three.JS framework. It features a fully rendered 3D model with proper lighting/shading and can be fully rotated left/right. It is responsive for a wide variety of screen sizes.<p>';
-          menuLink = '<p><a href = "https://https://kevinzer00.github.io/YUGEN-site/" target = "_blank">YUGEN Robotics</a><p>'
+          menuLink = '<p><a href = "https://kevinzer00.github.io/YUGEN-site/" target = "_blank">YUGEN Robotics</a><p>'
           break;
         case 3:
           menuText = '<p>You have opened chest 3!</p> This project is an FFMI (Fat-Free Mass Index) and BMI (Body Mass Index) calculator site built with React. It accepts various user parameters such as height and weight, and generates the corresponding values based on widely accepted FFMI/BMI formulas. The site also integrates responsive charts via Chart.js that plots the user FFMI/BMI on two different graphs in relation to the average statistics in America.';
           menuLink = '<p><a href = "https://ffmibmicalculator.netlify.app/" target = "_blank">FFMI and BMI Calculator</a><p>'
           break;
         case 4:
-          menuText = '<p>You have opened chest 4!</p> This is the dungeon crawler game you are playing! This portfolio was built using Phaser.JS, a framework designed specifically for 2D games! In this project, there are collisions, enemy logics, player damage, player health and player movement controls implemented. The assets are obtained through the itch.io asset store.';
+          menuText = '<p>You have opened chest 4!</p> This is the dungeon crawler game you are playing! This portfolio was built using Phaser.JS, a framework designed specifically for 2D games! In this project, there are collisions, enemy logics, player damage, health and movement controls implemented. The assets are obtained through the itch.io asset store.';
           menuLink = '<p><a href = "https://github.com/KevinZer00/dungeoncrawler.git/" target = "_blank">Dungeon Crawler Github Repository</a><p>'
           break;
         // Add more cases for additional chests
