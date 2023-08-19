@@ -292,8 +292,8 @@ this.restartGame = function() {
 
 preload() 
 {
-    this.load.image('tileset', 'http://dungeoncrawler3:8080/assets/dungeontiles2.png');
-    this.load.tilemapTiledJSON('tilemap', 'http://dungeoncrawler3:8080/map/dungeon2.json');
+    this.load.image('tileset', 'assets/dungeontiles2.png');
+    this.load.tilemapTiledJSON('tilemap', 'map/dungeon2.json');
 
 
     //load mask for fog of war effect
