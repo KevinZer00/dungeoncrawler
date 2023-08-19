@@ -100,6 +100,9 @@ class UIScene extends Phaser.Scene {
     linkedinIcon.x = gameWidth - 160;
     linkedinIcon.setScale(0.20);
     linkedinIcon.setInteractive();
+    linkedinIcon.on('pointerdown', function () {
+      window.open('https://www.linkedin.com/in/kevinyu99/', '_blank');
+    });
     linkedinIcon.on('pointerover', () => {
       this.sys.game.canvas.style.cursor = 'pointer';
     });
