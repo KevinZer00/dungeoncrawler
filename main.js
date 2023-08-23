@@ -59,11 +59,20 @@ class UIScene extends Phaser.Scene {
     this.hearts.clear(true, true);
     for (let i = 0; i < this.knight.health; i++) 
     {
-      let heart = this.add.sprite(10 + i * 50, 10, 'lives', 'ui_heart_full.png');
-      heart.setOrigin(0, 0);
-      heart.setScale(3.5);
-      heart.fixedToCamera = true;
-      this.hearts.add(heart);
+      if (this.sys.game.config.width < 450) {
+        let heart = this.add.sprite(10 + i * 30, 10, 'lives', 'ui_heart_full.png');
+        heart.setOrigin(0, 0);
+        heart.setScale(2);
+        heart.fixedToCamera = true;
+        this.hearts.add(heart);
+      }
+      else {
+        let heart = this.add.sprite(10 + i * 50, 10, 'lives', 'ui_heart_full.png');
+        heart.setOrigin(0, 0);
+        heart.setScale(3.5);
+        heart.fixedToCamera = true;
+        this.hearts.add(heart);
+      }
     }
 
 
@@ -88,59 +97,43 @@ class UIScene extends Phaser.Scene {
     
     if (isMobileDevice()) {
         // Top Row
-        let emailIcon = this.add.sprite(gameWidth - somePadding - 50, somePadding, 'emailIcon').setOrigin(1, 0);
-        emailIcon.y = 10; 
-        emailIcon.setScale(0.25);
-        emailIcon.setInteractive();
-        emailIcon.on('pointerdown', () => this.showContactMenu());
-        emailIcon.on('pointerover', () => {
-            this.sys.game.canvas.style.cursor = 'pointer';
-        });
-        emailIcon.on('pointerout', () => {
-            this.sys.game.canvas.style.cursor = 'default';
-        });
-    
-        let githubIcon = this.add.sprite(gameWidth - 20, 15, 'githubIcon').setOrigin(1, 0);
-        githubIcon.setScale(0.25);
-        githubIcon.setInteractive();
-        githubIcon.on('pointerdown', function () {
-            window.open('https://github.com/KevinZer00/', '_blank');
-        });
-        githubIcon.on('pointerover', () => {
-            this.sys.game.canvas.style.cursor = 'pointer';
-        });
-        githubIcon.on('pointerout', () => {
-            this.sys.game.canvas.style.cursor = 'default';
-        });
-    
-        // Bottom Row
-        let linkedinIcon = this.add.sprite(gameWidth - 30 - iconHorizontalSpacing, 45 + iconVerticalSpacing, 'linkedinIcon').setOrigin(1, 0);
-        linkedinIcon.setScale(0.25);
-        linkedinIcon.setInteractive();
-        linkedinIcon.on('pointerdown', function () {
-            window.open('https://www.linkedin.com/in/kevinyu99/', '_blank');
-        });
-        linkedinIcon.on('pointerover', () => {
-            this.sys.game.canvas.style.cursor = 'pointer';
-        });
-        linkedinIcon.on('pointerout', () => {
-            this.sys.game.canvas.style.cursor = 'default';
-        });
-    
-        let discordIcon = this.add.sprite(gameWidth - 20, somePadding + iconVerticalSpacing, 'discordIcon').setOrigin(1, 0);
-        discordIcon.setScale(0.25);
-        discordIcon.setInteractive();
-        discordIcon.on('pointerdown', function () {
-            window.open('https://discordapp.com/users/92475534600073216', '_blank');
-        });
-        discordIcon.on('pointerover', () => {
-            this.sys.game.canvas.style.cursor = 'pointer';
-        });
-        discordIcon.on('pointerout', () => {
-            this.sys.game.canvas.style.cursor = 'default';
-        });
-
-} 
+          const gameWidth = this.sys.game.config.width;
+          const gameHeight = this.sys.game.config.height;
+      
+          const iconSpacing = 20; // Space between icons
+      
+          // Assuming all icons have the same width after scaling
+          const iconWidth = 50 * 0.25;  // 50 is the original width of the icon, and 0.25 is the scale factor
+      
+          // Calculate total width of all icons and spaces
+          const totalWidth = 4 * iconWidth + 3 * iconSpacing;
+      
+          // Calculate starting x-position
+          const startX = (gameWidth - totalWidth) / 2;
+      
+          const bottomPadding = 20; // Space from the bottom of the screen
+          const yPos = gameHeight - iconWidth/2 - bottomPadding; // y-position for all icons
+      
+          let emailIcon = this.add.sprite(startX, yPos, 'emailIcon').setScale(0.15).setInteractive();
+          emailIcon.on('pointerdown', () => this.showContactMenu());
+          emailIcon.on('pointerover', () => { this.sys.game.canvas.style.cursor = 'pointer'; });
+          emailIcon.on('pointerout', () => { this.sys.game.canvas.style.cursor = 'default'; });
+      
+          let githubIcon = this.add.sprite(emailIcon.x + iconWidth + iconSpacing, yPos, 'githubIcon').setScale(0.25).setInteractive();
+          githubIcon.on('pointerdown', function () { window.open('https://github.com/KevinZer00/', '_blank'); });
+          githubIcon.on('pointerover', () => { this.sys.game.canvas.style.cursor = 'pointer'; });
+          githubIcon.on('pointerout', () => { this.sys.game.canvas.style.cursor = 'default'; });
+      
+          let linkedinIcon = this.add.sprite(githubIcon.x + iconWidth + iconSpacing, yPos, 'linkedinIcon').setScale(0.25).setInteractive();
+          linkedinIcon.on('pointerdown', function () { window.open('https://www.linkedin.com/in/kevinyu99/', '_blank'); });
+          linkedinIcon.on('pointerover', () => { this.sys.game.canvas.style.cursor = 'pointer'; });
+          linkedinIcon.on('pointerout', () => { this.sys.game.canvas.style.cursor = 'default'; });
+      
+          let discordIcon = this.add.sprite(linkedinIcon.x + iconWidth + iconSpacing, yPos, 'discordIcon').setScale(0.25).setInteractive();
+          discordIcon.on('pointerdown', function () { window.open('https://discordapp.com/users/92475534600073216', '_blank'); });
+          discordIcon.on('pointerover', () => { this.sys.game.canvas.style.cursor = 'pointer'; });
+          discordIcon.on('pointerout', () => { this.sys.game.canvas.style.cursor = 'default'; });
+      }  
 else {
   let emailIcon = this.add.sprite(gameWidth - somePadding, somePadding, 'emailIcon').setOrigin(1, 0);
     emailIcon.y = 10; 
@@ -322,13 +315,7 @@ class MyGame extends Phaser.Scene {
       this.scene.pause();
     };
 
-    const beginButton = document.getElementById('begin-button');
-    beginButton.addEventListener('click', () => {
-    // Hide the main menu
-    const mainMenuDiv = document.getElementById('main-menu');
-    mainMenuDiv.style.display = 'none';
-  
-  });
+   
 
 this.gameOver = function()
 {
@@ -434,8 +421,6 @@ preload()
 
 create() 
 {
-
-
 
     console.log(this.scene.key);
     console.log(this.cache.tilemap.get('tilemap'));
@@ -825,7 +810,13 @@ create()
 
    //making the camera to follow the player
    this.cameras.main.startFollow(this.knight, true);
-   this.cameras.main.zoom = 3;
+   if (this.sys.game.config.width < 500) { // You can adjust this threshold as needed
+    this.cameras.main.zoom = 2; // Zoom out by 50%
+}
+else {
+  this.cameras.main.zoom = 3;
+}
+
 
 
    //skeleton enemies animations
@@ -1721,7 +1712,7 @@ function knightEnemyCollision (knight, enemy)
 
 
   if (isMobileDevice()) {
-    this.attackButton = this.add.circle(this.sys.game.config.width * 0.4, this.sys.game.config.height * 0.625, 15, 0x8B4513);
+    this.attackButton = this.add.circle(this.sys.game.config.width * 0.38, this.sys.game.config.height * 0.625, 15, 0x8B4513);
     this.attackButtonText = this.add.text(this.attackButton.x, this.attackButton.y, "ATK", {
       font: "10px Arial",
       fill: "#ffffff"
@@ -3069,12 +3060,14 @@ performAttack() {
 }
 
 
+const gameWidth = window.innerWidth;
+const gameHeight = window.innerHeight;
 
 const config = {
   type: Phaser.AUTO,
   pixelArt: true,
-  width: window.innerWidth,
-  height: window.innerHeight,
+  width: gameWidth,
+  height: gameHeight,
   physics: {
       default: 'arcade',
       arcade: {
@@ -3099,4 +3092,7 @@ const config = {
 };
 
 let game = new Phaser.Game(config);
+window.addEventListener('resize', function() {
+  game.scale.resize(window.innerWidth, window.innerHeight);
+});
 
