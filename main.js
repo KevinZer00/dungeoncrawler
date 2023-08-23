@@ -1,3 +1,8 @@
+function isMobileDevice() {
+  return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+}
+
+
 class UIScene extends Phaser.Scene {
   constructor(knight, health) {
     super({key: 'UIScene'});
@@ -29,6 +34,7 @@ class UIScene extends Phaser.Scene {
 
     //load the Discord icon
     this.load.image('discordIcon', 'discord.png');
+
   }
 
   create()
@@ -60,14 +66,85 @@ class UIScene extends Phaser.Scene {
       this.hearts.add(heart);
     }
 
+
+   if (!isMobileDevice()) {
+    const textYPosition =  + 100;
+
+    // Add text for the keyboard controls.
+    this.add.text(20, textYPosition, 'CONTROLS:', { font: '24px Arial', fill: '#ffffff' });
+    this.add.text(20, textYPosition + 40, 'Arrow Keys: Move', { font: '24px Arial', fill: '#ffffff' });
+    this.add.text(20, textYPosition + 80, 'F Key: Open Chest', { font: '24px Arial', fill: '#ffffff' });
+    this.add.text(20, textYPosition + 120, 'Space: Attack', { font: '24px Arial', fill: '#ffffff' });
+   }
+        
+
     let gameWidth = this.sys.game.config.width;
     let gameHeight = this.sys.game.config.height;
 
     let somePadding = 50;
 
-    let emailIcon = this.add.sprite(gameWidth - somePadding, somePadding, 'emailIcon').setOrigin(1, 0);
+    let iconVerticalSpacing = 50;  // Adjust as needed for vertical spacing on mobile
+    let iconHorizontalSpacing = 70;  // Adjust as needed for horizontal spacing on mobile
+    
+    if (isMobileDevice()) {
+        // Top Row
+        let emailIcon = this.add.sprite(gameWidth - somePadding - 50, somePadding, 'emailIcon').setOrigin(1, 0);
+        emailIcon.y = 10; 
+        emailIcon.setScale(0.25);
+        emailIcon.setInteractive();
+        emailIcon.on('pointerdown', () => this.showContactMenu());
+        emailIcon.on('pointerover', () => {
+            this.sys.game.canvas.style.cursor = 'pointer';
+        });
+        emailIcon.on('pointerout', () => {
+            this.sys.game.canvas.style.cursor = 'default';
+        });
+    
+        let githubIcon = this.add.sprite(gameWidth - 20, 15, 'githubIcon').setOrigin(1, 0);
+        githubIcon.setScale(0.25);
+        githubIcon.setInteractive();
+        githubIcon.on('pointerdown', function () {
+            window.open('https://github.com/KevinZer00/', '_blank');
+        });
+        githubIcon.on('pointerover', () => {
+            this.sys.game.canvas.style.cursor = 'pointer';
+        });
+        githubIcon.on('pointerout', () => {
+            this.sys.game.canvas.style.cursor = 'default';
+        });
+    
+        // Bottom Row
+        let linkedinIcon = this.add.sprite(gameWidth - 30 - iconHorizontalSpacing, 45 + iconVerticalSpacing, 'linkedinIcon').setOrigin(1, 0);
+        linkedinIcon.setScale(0.25);
+        linkedinIcon.setInteractive();
+        linkedinIcon.on('pointerdown', function () {
+            window.open('https://www.linkedin.com/in/kevinyu99/', '_blank');
+        });
+        linkedinIcon.on('pointerover', () => {
+            this.sys.game.canvas.style.cursor = 'pointer';
+        });
+        linkedinIcon.on('pointerout', () => {
+            this.sys.game.canvas.style.cursor = 'default';
+        });
+    
+        let discordIcon = this.add.sprite(gameWidth - 20, somePadding + iconVerticalSpacing, 'discordIcon').setOrigin(1, 0);
+        discordIcon.setScale(0.25);
+        discordIcon.setInteractive();
+        discordIcon.on('pointerdown', function () {
+            window.open('https://discordapp.com/users/92475534600073216', '_blank');
+        });
+        discordIcon.on('pointerover', () => {
+            this.sys.game.canvas.style.cursor = 'pointer';
+        });
+        discordIcon.on('pointerout', () => {
+            this.sys.game.canvas.style.cursor = 'default';
+        });
+
+} 
+else {
+  let emailIcon = this.add.sprite(gameWidth - somePadding, somePadding, 'emailIcon').setOrigin(1, 0);
     emailIcon.y = 10; 
-    emailIcon.x = gameWidth - 30;
+    emailIcon.x = gameWidth - 10;
     emailIcon.on('pointerdown', () => this.showContactMenu());
     emailIcon.setScale(0.25);
     emailIcon.setInteractive();
@@ -97,7 +174,7 @@ class UIScene extends Phaser.Scene {
 
     let linkedinIcon = this.add.sprite(gameWidth - somePadding, somePadding, 'linkedinIcon').setOrigin(1, 0);
     linkedinIcon.y = 15; 
-    linkedinIcon.x = gameWidth - 160;
+    linkedinIcon.x = gameWidth - 180;
     linkedinIcon.setScale(0.20);
     linkedinIcon.setInteractive();
     linkedinIcon.on('pointerdown', function () {
@@ -113,7 +190,7 @@ class UIScene extends Phaser.Scene {
 
     let discordIcon = this.add.sprite(gameWidth - somePadding, somePadding, 'discordIcon').setOrigin(1, 0);
     discordIcon.y = 10; 
-    discordIcon.x = gameWidth - 220;
+    discordIcon.x = gameWidth - 260;
     discordIcon.setScale(0.25);
     discordIcon.setInteractive();
     discordIcon.on('pointerdown', function () {
@@ -126,8 +203,7 @@ class UIScene extends Phaser.Scene {
     discordIcon.on('pointerout', () => {
       this.sys.game.canvas.style.cursor = 'default';
     });
-
-
+}
 
     
 
@@ -295,6 +371,10 @@ this.restartGame = function() {
 
 preload() 
 {
+
+  this.load.plugin('rexvirtualjoystickplugin', 'https://raw.githubusercontent.com/rexrainbow/phaser3-rex-notes/master/dist/rexvirtualjoystickplugin.min.js', true);
+
+
     this.load.image('tileset', 'assets/dungeontiles2.png');
     this.load.tilemapTiledJSON('tilemap', 'map/dungeon2.json');
 
@@ -347,13 +427,17 @@ preload()
 
     this.cursors = this.input.keyboard.createCursorKeys()
 
+
+
     
 }
 
 create() 
 {
 
-  console.log(this.scene.key);
+
+
+    console.log(this.scene.key);
     console.log(this.cache.tilemap.get('tilemap'));
     console.log(this.cache.tilemap.has('tilemap'));
 
@@ -543,7 +627,7 @@ create()
     this.knight.body.immovable = true;
     this.knight.body.offset.y = 6;
 
-    this.knight.health = 5;
+    this.knight.health = 8;
 
 
     this.scene.stop('UIScene'); // Stop the previous instance
@@ -654,7 +738,7 @@ create()
      repeat: 0
    })
 
-   this.chest1Text = this.add.text(this.chest1.x, this.chest1.y - 20, 'Press F to open!',
+   this.chest1Text = this.add.text(this.chest1.x, this.chest1.y - 20, 'Open me!',
   {
     fontFamily: 'Dungeon',
     fontSize: '30px',
@@ -664,7 +748,7 @@ create()
    this.chest1Text.setVisible(false);
    this.chest1Text.setScale(0.4);
 
-   this.chest2Text = this.add.text(this.chest2.x, this.chest2.y - 20, 'Press F to open!',
+   this.chest2Text = this.add.text(this.chest2.x, this.chest2.y - 20, 'Open me!',
    {
      fontFamily: 'Dungeon',
      fontSize: '30px',
@@ -674,7 +758,7 @@ create()
    this.chest2Text.setVisible(false);
    this.chest2Text.setScale(0.4);
 
-   this.chest3Text = this.add.text(this.chest3.x, this.chest3.y - 20, 'Press F to open!',
+   this.chest3Text = this.add.text(this.chest3.x, this.chest3.y - 20, 'Open me!',
    {
      fontFamily: 'Dungeon',
      fontSize: '30px',
@@ -684,7 +768,7 @@ create()
    this.chest3Text.setVisible(false);
    this.chest3Text.setScale(0.4);
 
-   this.chest4Text = this.add.text(this.chest4.x, this.chest4.y - 20, 'Press F to open!',
+   this.chest4Text = this.add.text(this.chest4.x, this.chest4.y - 20, 'Open me!',
    {
      fontFamily: 'Dungeon',
      fontSize: '30px',
@@ -1233,9 +1317,7 @@ this.physics.add.overlap(this.knight, this.spikes, (knight, spikes) =>
         this.knightHit = true;
         knight.anims.play("knight-hit");
 
-        // knock the knight back and reduce their health
-        knight.body.setVelocityX(Phaser.Math.Between(-200, 200));
-        knight.body.setVelocityY(Phaser.Math.Between(-200, 200));
+      
         knight.health--;
         console.log(knight.health);
         
@@ -1277,9 +1359,7 @@ this.physics.add.overlap(this.knight, this.spikes, (knight, spikes) =>
         this.knightHit = true;
         knight.anims.play("knight-hit");
 
-        // knock the knight back and reduce their health
-        knight.body.setVelocityX(Phaser.Math.Between(-200, 200));
-        knight.body.setVelocityY(Phaser.Math.Between(-200, 200));
+     
         knight.health--;
         console.log(knight.health);
         
@@ -1321,9 +1401,7 @@ this.physics.add.overlap(this.knight, this.spikes, (knight, spikes) =>
         this.knightHit = true;
         knight.anims.play("knight-hit");
 
-        // knock the knight back and reduce their health
-        knight.body.setVelocityX(Phaser.Math.Between(-200, 200));
-        knight.body.setVelocityY(Phaser.Math.Between(-200, 200));
+     
         knight.health--;
         console.log(knight.health);
         
@@ -1363,9 +1441,7 @@ this.physics.add.overlap(this.knight, this.spikes, (knight, spikes) =>
         this.knightHit = true;
         knight.anims.play("knight-hit");
 
-        // knock the knight back and reduce their health
-        knight.body.setVelocityX(Phaser.Math.Between(-200, 200));
-        knight.body.setVelocityY(Phaser.Math.Between(-200, 200));
+       
         knight.health--;
         console.log(knight.health);
         
@@ -1406,9 +1482,6 @@ this.physics.add.overlap(this.knight, this.spikes, (knight, spikes) =>
         this.knightHit = true;
         knight.anims.play("knight-hit");
 
-        // knock the knight back and reduce their health
-        knight.body.setVelocityX(Phaser.Math.Between(-200, 200));
-        knight.body.setVelocityY(Phaser.Math.Between(-200, 200));
         knight.health--;
         console.log(knight.health);
         
@@ -1450,9 +1523,7 @@ this.physics.add.overlap(this.knight, this.spikes, (knight, spikes) =>
         this.knightHit = true;
         knight.anims.play("knight-hit");
 
-        // knock the knight back and reduce their health
-        knight.body.setVelocityX(Phaser.Math.Between(-200, 200));
-        knight.body.setVelocityY(Phaser.Math.Between(-200, 200));
+      
         knight.health--;
         console.log(knight.health);
         
@@ -1602,7 +1673,7 @@ function knightEnemyCollision (knight, enemy)
 
 
   //creating the fog of war effect
-    const width = this.scale.width;
+    const width = this.scale.width * 2;
     const height = this.scale.height;
 
     const rt = this.make.renderTexture
@@ -1624,69 +1695,183 @@ function knightEnemyCollision (knight, enemy)
       key: 'mask',
       add: false
     })
-    mask.scale = 0.75;
+    mask.scale = 0.8;
   
     this.mask = mask;
     rt.mask = new Phaser.Display.Masks.BitmapMask(this, mask)
     rt.mask.invertAlpha = true
+
+
+    if (isMobileDevice()) {
+      this.joyStick = this.plugins.get('rexvirtualjoystickplugin').add(this, {
+        x: this.sys.game.config.width * 0.6,
+        y: this.sys.game.config.height * 0.625,
+        radius: 15,
+        base: this.add.circle(0, 0, 20, 0x888888),
+        thumb: this.add.circle(0, 0, 10, 0xcccccc),
+        dir: '8dir',
+        forceMin: 16,
+        fixed: true,
+        enable: true
+    });
+    console.log("Joystick initialized:", this.joyStick);
+    this.joyStick.base.setDepth(2);
+    this.joyStick.thumb.setDepth(3);
+  }
+
+
+  if (isMobileDevice()) {
+    this.attackButton = this.add.circle(this.sys.game.config.width * 0.4, this.sys.game.config.height * 0.625, 15, 0x8B4513);
+    this.attackButtonText = this.add.text(this.attackButton.x, this.attackButton.y, "ATK", {
+      font: "10px Arial",
+      fill: "#ffffff"
+    }).setOrigin(0.5, 0.5);
+    this.attackButton.setInteractive();
+    this.attackButton.setScrollFactor(0);
+    if (this.attackButton) {
+      this.attackButton.on('pointerdown', () => {
+          this.performAttack();
+      });
+    }
+  
+    console.log("Attack button intialized:", this.attackButton);
+    this.attackButton.setDepth(10);
+    this.attackButtonText.setDepth(11);
+    this.attackButtonText.setScrollFactor(0);
+  }
+
+
+
+  if (isMobileDevice()) {
+    this.openChestButton = this.add.circle(this.sys.game.config.width * 0.465, this.sys.game.config.height * 0.625, 15, 0x8B4513);
+    this.openButtonText = this.add.text(this.openChestButton.x, this.openChestButton.y, "OPEN", {
+      font: "10px Arial",
+      fill: "#ffffff"
+    }).setOrigin(0.5, 0.5); 
+    this.openButtonText.setPosition(this.openChestButton.x, this.openChestButton.y);
+    this.openChestButton.setInteractive();
+    this.openChestButton.setScrollFactor(0); 
+    this.openChestButton.setDepth(11);
+    this.openButtonText.setDepth(12);
+    this.openButtonText.setScrollFactor(0);
+
+
+
+    this.chestButtonPressed = false;
+    this.openChestButton.on('pointerdown', () => {
+      this.chestButtonPressed = true;
+    });
+
+    this.openChestButton.on('pointerup', () => {
+      this.chestButtonPressed = false;
+    });
+
+  }
+
+
 }
 
 
-update ()
+update()
 {
-  //movement control for player character 
-    if (!this.cursors || !this.knight) {
-        return
-      }
-      
-      let velocityX = 0
-      let velocityY = 0
-      
-      if (this.cursors.left.isDown) {
-        velocityX = -100
-        this.knight.scaleX = -1
-        this.knight.body.offset.x = 15
-      } else if (this.cursors.right.isDown) {
-        velocityX = 100
-        this.knight.scaleX = 1
-        this.knight.body.offset.x = 0
-      }
-      
-      if (this.cursors.up.isDown) {
-        velocityY = -100
-      } else if (this.cursors.down.isDown) {
-        velocityY = 100
-      }
+  let isJoystickActive = false;
 
-      if (this.cursors.left.isDown && this.cursors.up.isDown) {
-        velocityX = -100 * Math.cos(Math.PI / 4)
-        velocityY = -100 * Math.sin(Math.PI / 4)
-      } else if (this.cursors.right.isDown && this.cursors.up.isDown) {
-        velocityX = 100 * Math.cos(Math.PI / 4)
-        velocityY = -100 * Math.sin(Math.PI / 4)
-      } else if (this.cursors.left.isDown && this.cursors.down.isDown) {
-        velocityX = -100 * Math.cos(Math.PI / 4)
-        velocityY = 100 * Math.sin(Math.PI / 4)
-      } else if (this.cursors.right.isDown && this.cursors.down.isDown) {
-        velocityX = 100 * Math.cos(Math.PI / 4)
-        velocityY = 100 * Math.sin(Math.PI / 4)
-      }
-      
-      if (velocityX !== 0 || velocityY !== 0) {
-        this.knight.body.setVelocity(velocityX, velocityY)
-        if (velocityX < 0 && velocityY === 0) {
-          this.knight.anims.play('knight-run-left', true)
-        } else if (velocityX > 0 && velocityY === 0) {
-          this.knight.anims.play('knight-run-right', true)
-        } else if (velocityY < 0) {
-          this.knight.anims.play('knight-run-down', true)
+
+  if (this.joyStick) {
+    let dx = this.joyStick.thumb.x - this.joyStick.base.x;
+    let dy = this.joyStick.thumb.y - this.joyStick.base.y;
+
+    let magnitude = Math.sqrt(dx * dx + dy * dy);
+    console.log("dx:", dx, "dy:", dy, "magnitude:", magnitude);
+
+    if (magnitude > 0) {
+        isJoystickActive = true;
+        let nx = dx / magnitude;
+        let ny = dy / magnitude;
+        
+        let speed = 100;  // Adjust as needed
+        this.knight.body.setVelocityX(nx * speed);
+        this.knight.body.setVelocityY(ny * speed);
+
+        // Joystick Animation Logic
+        if (nx < 0 && Math.abs(ny) * 0.1 < Math.abs(nx)) {
+            this.knight.anims.play('knight-run-right', true); // Use run-right animation
+            this.knight.setScale(-1, 1); // Flip sprite horizontally
+            this.knight.body.offset.x = 15;
+        } else if (nx > 0 && Math.abs(ny)< Math.abs(nx)) {
+            this.knight.anims.play('knight-run-right', true);
+            this.knight.setScale(1, 1); // Reset to normal scale
+            this.knight.body.offset.x = 0;
+        } else if (ny < 0) {
+            this.knight.anims.play('knight-run-down', true);
+            this.knight.setScale(1, 1); // Reset to normal scale
         } else {
-          this.knight.anims.play('knight-run-up', true)
+            this.knight.anims.play('knight-run-up', true);
+            this.knight.setScale(1, 1); // Reset to normal scale
         }
-      } else {
-        this.knight.anims.play('knight-idle-right', true)
-        this.knight.body.setVelocity(0, 0)
+    } else {
+        this.knight.anims.play('knight-idle-right', true);
+        this.knight.body.setVelocity(0, 0);
     }
+}
+
+
+
+if (!isJoystickActive && this.cursors && this.knight) {
+  // If joystick is not active, use keyboard controls
+  let velocityX = 0;
+  let velocityY = 0;
+
+  if (this.cursors.left.isDown) {
+      velocityX = -100;
+      this.knight.scaleX = -1;
+      this.knight.body.offset.x = 15;
+  } else if (this.cursors.right.isDown) {
+      velocityX = 100;
+      this.knight.scaleX = 1;
+      this.knight.body.offset.x = 0;
+  }
+
+  if (this.cursors.up.isDown) {
+      velocityY = -100;
+  } else if (this.cursors.down.isDown) {
+      velocityY = 100;
+  }
+
+  if (this.cursors.left.isDown && this.cursors.up.isDown) {
+      velocityX = -100 * Math.cos(Math.PI / 4);
+      velocityY = -100 * Math.sin(Math.PI / 4);
+  } else if (this.cursors.right.isDown && this.cursors.up.isDown) {
+      velocityX = 100 * Math.cos(Math.PI / 4);
+      velocityY = -100 * Math.sin(Math.PI / 4);
+  } else if (this.cursors.left.isDown && this.cursors.down.isDown) {
+      velocityX = -100 * Math.cos(Math.PI / 4);
+      velocityY = 100 * Math.sin(Math.PI / 4);
+  } else if (this.cursors.right.isDown && this.cursors.down.isDown) {
+      velocityX = 100 * Math.cos(Math.PI / 4);
+      velocityY = 100 * Math.sin(Math.PI / 4);
+  }
+
+  if (velocityX !== 0 || velocityY !== 0) {
+      this.knight.body.setVelocity(velocityX, velocityY);
+      if (velocityX < 0 && velocityY === 0) {
+          this.knight.anims.play('knight-run-left', true);
+      } else if (velocityX > 0 && velocityY === 0) {
+          this.knight.anims.play('knight-run-right', true);
+      } else if (velocityY < 0) {
+          this.knight.anims.play('knight-run-down', true);
+      } else {
+          this.knight.anims.play('knight-run-up', true);
+      }
+  } else {
+      this.knight.anims.play('knight-idle-right', true);
+      this.knight.body.setVelocity(0, 0);
+  }
+}
+
+
+
+
 
     //move fog of war with player
     if (this.mask)
@@ -1701,9 +1886,9 @@ update ()
 
     if (distanceChest1 < 20 && !this.isOpen1 && !this.menuOpened1) {
       this.chest1Text.setVisible(true);
-      this.chest1Text.setText('Press F to open!');
+      this.chest1Text.setText('Open me!');
     
-      if (Phaser.Input.Keyboard.JustDown(this.keyF)) {
+      if (Phaser.Input.Keyboard.JustDown(this.keyF) || this.chestButtonPressed) {
         this.isOpen1 = true;
         this.chestsFound++;
         this.events.emit('chest-opened');
@@ -1729,7 +1914,7 @@ update ()
   if (distanceChest2 < 20 && !this.isOpen2 && !this.menuOpened2) {
     this.chest2Text.setVisible(true);
 
-    if (Phaser.Input.Keyboard.JustDown(this.keyF)) {
+    if (Phaser.Input.Keyboard.JustDown(this.keyF) || this.chestButtonPressed) {
       this.isOpen2 = true;
       this.chestsFound++;
       this.events.emit('chest-opened');
@@ -1755,7 +1940,7 @@ update ()
   if (distanceChest3 < 20 && !this.isOpen3 && !this.menuOpened3) {
     this.chest3Text.setVisible(true);
 
-    if (Phaser.Input.Keyboard.JustDown(this.keyF)) {
+    if (Phaser.Input.Keyboard.JustDown(this.keyF) || this.chestButtonPressed) {
       this.isOpen3 = true;
       this.chestsCollected++;
       this.events.emit('chest-opened');
@@ -1781,7 +1966,7 @@ update ()
   if (distanceChest4 < 20 && !this.isOpen4 && !this.menuOpened4) {
     this.chest4Text.setVisible(true);
 
-    if (Phaser.Input.Keyboard.JustDown(this.keyF)) {
+    if (Phaser.Input.Keyboard.JustDown(this.keyF) || this.chestButtonPressed) {
       this.isOpen4 = true;
       this.chestsCollected++;
       this.events.emit('chest-opened');
@@ -2737,6 +2922,149 @@ if (this.knight.health === 0)
 }
 }
 
+performAttack() {
+  if (!this.isAttacking) {
+      this.isAttacking = true;
+      this.sword.setVisible(true);
+      this.sword.anims.play('sword_attack', true);
+
+      // Overlap logic with various enemies
+      this.physics.world.overlap(this.sword, this.skeleton, () => {
+          this.skeleton.health--;
+          if (this.skeleton.health <= 0) {
+              this.skeleton.destroy();
+          }
+      });
+
+      this.physics.world.overlap(this.sword, this.skeleton2, () => {
+          this.skeleton2.health--;
+          if (this.skeleton2.health <= 0) {
+              this.skeleton2.destroy();
+          }
+      });
+
+      this.physics.world.overlap(this.sword, this.skeleton3, () =>
+      {
+        this.skeleton3.health--;
+        if (this.skeleton3.health <= 0)
+        {
+          this.skeleton3.destroy();
+        }
+      })
+      this.physics.world.overlap(this.sword, this.demon, () =>
+      {
+        this.demon.health--;
+        if (this.demon.health <= 0)
+        {
+          this.demon.destroy();
+        }
+      })
+
+      this.physics.world.overlap(this.sword, this.orc, () =>
+      {
+        this.orc.health--;
+        if (this.orc.health <= 0)
+        {
+          this.orc.destroy();
+        }
+      })
+
+      this.physics.world.overlap(this.sword, this.orc2, () =>
+      {
+        this.orc2.health--;
+        if (this.orc2.health <= 0)
+        {
+          this.orc2.destroy();
+        }
+      })
+
+      this.physics.world.overlap(this.sword, this.orc3, () =>
+      {
+        this.orc3.health--;
+        if (this.orc3.health <= 0)
+        {
+          this.orc3.destroy();
+        }
+      })
+
+      this.physics.world.overlap(this.sword, this.zombie, () =>
+      {
+        this.zombie.health--;
+        if (this.zombie.health <= 0)
+        {
+          this.zombie.destroy();
+        }
+      })
+
+      this.physics.world.overlap(this.sword, this.swamp, () =>
+      {
+        this.swamp.health--;
+        if (this.swamp.health <= 0)
+        {
+          this.swamp.destroy();
+        }
+      })
+
+      this.physics.world.overlap(this.sword, this.swamp2, () =>
+      {
+        this.swamp2.health--;
+        if (this.swamp2.health <= 0)
+        {
+          this.swamp2.destroy();
+        }
+      })
+
+      this.physics.world.overlap(this.sword, this.swamp3, () =>
+      {
+        this.swamp3.health--;
+        if (this.swamp3.health <= 0)
+        {
+          this.swamp3.destroy();
+        }
+      })
+
+
+      this.physics.world.overlap(this.sword, this.chort, () =>
+      {
+        this.chort.health--;
+        if (this.chort.health <= 0)
+        {
+          this.chort.destroy();
+        }
+      })
+
+      this.physics.world.overlap(this.sword, this.chort2, () =>
+      {
+        this.chort2.health--;
+        if (this.chort2.health <= 0)
+        {
+          this.chort2.destroy();
+        }
+      })
+
+      this.physics.world.overlap(this.sword, this.chort3, () =>
+      {
+        this.chort3.health--;
+        if (this.chort3.health <= 0)
+        {
+          this.chort3.destroy();
+        }
+      })
+
+      this.physics.world.overlap(this.sword, this.chort4, () => {
+          this.chort4.health--;
+          if (this.chort4.health <= 0) {
+              this.chort4.destroy();
+          }
+      });
+
+      setTimeout(() => {
+          this.sword.setVisible(false);
+          this.isAttacking = false;
+      }, 250); // hide the sword after 1 second
+  }
+}
+
 
 }
 
@@ -2748,15 +3076,25 @@ const config = {
   width: window.innerWidth,
   height: window.innerHeight,
   physics: {
-    default: 'arcade',
-    arcade: {
-      gravity: { y: 0 },
-      debug: false
-    }
+      default: 'arcade',
+      arcade: {
+          gravity: { y: 0 },
+          debug: false
+      }
   },
   scene: [MyGame, UIScene],
   scale: {
-    zoom: 1
+    mode: Phaser.Scale.FIT, 
+    autoCenter: Phaser.Scale.CENTER_BOTH
+  },
+  plugins: {
+      scene: [
+          {
+              key: 'rexVirtualJoystick',
+              plugin: Phaser.Plugins.ScenePlugin,
+              mapping: 'rexVirtualJoystick'
+          }
+      ]
   }
 };
 
