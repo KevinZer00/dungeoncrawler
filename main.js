@@ -103,69 +103,52 @@ class UIScene extends Phaser.Scene {
     let iconHorizontalSpacing = 70;  // Adjust as needed for horizontal spacing on mobile
     
     if (isMobileDevice()) {
-      // Top Row
-      const gameWidth = this.sys.game.config.width;
-      const gameHeight = this.sys.game.config.height;
-  
-      const iconSpacing = 60; // Space between icons
-  
-      // Assuming all icons have the same width after scaling
-      const iconWidth = 50 * 0.25;  // 50 is the original width of the icon, and 0.25 is the scale factor
-  
-      // Calculate total width of all icons and spaces
-      const totalWidth = 4 * iconWidth + 3 * iconSpacing;
-  
-      // Calculate starting x-position
-      const startX = (gameWidth - totalWidth) / 2;
-  
-      const bottomPadding = 30; // Space from the bottom of the screen
-      const yPos = gameHeight - iconWidth/2 - bottomPadding; // y-position for all icons
-  
-      let emailIcon = this.add.sprite(startX, yPos, 'emailIcon').setScale(0.25).setInteractive();
-      emailIcon.on('pointerdown', (pointer) => {
-          if (pointer.event.cancelable) {
-              pointer.event.preventDefault();
-          }
-          pointer.event.stopPropagation();
-          this.showContactMenu();
-      });
-      emailIcon.on('pointerover', () => { this.sys.game.canvas.style.cursor = 'pointer'; });
-      emailIcon.on('pointerout', () => { this.sys.game.canvas.style.cursor = 'default'; });
-  
-      let githubIcon = this.add.sprite(emailIcon.x + iconWidth + iconSpacing, yPos, 'githubIcon').setScale(0.20).setInteractive();
-      githubIcon.on('pointerdown', (pointer) => {
-          if (pointer.event.cancelable) {
-              pointer.event.preventDefault();
-          }
-          pointer.event.stopPropagation();
-          window.open('https://github.com/KevinZer00/', '_blank');
-      });
-      githubIcon.on('pointerover', () => { this.sys.game.canvas.style.cursor = 'pointer'; });
-      githubIcon.on('pointerout', () => { this.sys.game.canvas.style.cursor = 'default'; });
-  
-      let linkedinIcon = this.add.sprite(githubIcon.x + iconWidth + iconSpacing, yPos, 'linkedinIcon').setScale(0.20).setInteractive();
-      linkedinIcon.on('pointerdown', (pointer) => {
-          if (pointer.event.cancelable) {
-              pointer.event.preventDefault();
-          }
-          pointer.event.stopPropagation();
-          window.open('https://www.linkedin.com/in/kevinyu99/', '_blank');
-      });
-      linkedinIcon.on('pointerover', () => { this.sys.game.canvas.style.cursor = 'pointer'; });
-      linkedinIcon.on('pointerout', () => { this.sys.game.canvas.style.cursor = 'default'; });
-  
-      let discordIcon = this.add.sprite(linkedinIcon.x + iconWidth + iconSpacing, yPos, 'discordIcon').setScale(0.25).setInteractive();
-      discordIcon.on('pointerdown', (pointer) => {
-          if (pointer.event.cancelable) {
-              pointer.event.preventDefault();
-          }
-          pointer.event.stopPropagation();
-          window.open('https://discordapp.com/users/92475534600073216', '_blank');
-      });
-      discordIcon.on('pointerover', () => { this.sys.game.canvas.style.cursor = 'pointer'; });
-      discordIcon.on('pointerout', () => { this.sys.game.canvas.style.cursor = 'default'; });
-  } 
-  
+        // Top Row
+          const gameWidth = this.sys.game.config.width;
+          const gameHeight = this.sys.game.config.height;
+      
+          const iconSpacing = 60; // Space between icons
+      
+          // Assuming all icons have the same width after scaling
+          const iconWidth = 50 * 0.25;  // 50 is the original width of the icon, and 0.25 is the scale factor
+      
+          // Calculate total width of all icons and spaces
+          const totalWidth = 4 * iconWidth + 3 * iconSpacing;
+      
+          // Calculate starting x-position
+          const startX = (gameWidth - totalWidth) / 2;
+      
+          const bottomPadding = 30; // Space from the bottom of the screen
+          const yPos = gameHeight - iconWidth/2 - bottomPadding; // y-position for all icons
+      
+          let emailIcon = this.add.sprite(startX, yPos, 'emailIcon').setScale(0.25).setInteractive();
+          emailIcon.setInteractive().on('pointerdown', function(pointer) {
+            if (pointer.isDown) {
+                this.showContactMenu();
+            }
+         }, this);
+      
+          let githubIcon = this.add.sprite(emailIcon.x + iconWidth + iconSpacing, yPos, 'githubIcon').setScale(0.20).setInteractive();
+          githubIcon.setInteractive().on('pointerdown', function(pointer) {
+            if (pointer.isDown) {
+                window.open('https://github.com/KevinZer00/', '_blank');
+            }
+          }, this);
+      
+          let linkedinIcon = this.add.sprite(githubIcon.x + iconWidth + iconSpacing, yPos, 'linkedinIcon').setScale(0.20).setInteractive();
+          linkedinIcon.setInteractive().on('pointerdown', function(pointer) {
+            if (pointer.isDown) {
+                window.open('https://www.linkedin.com/in/kevinyu99/', '_blank');
+            }
+        }, this);
+      
+          let discordIcon = this.add.sprite(linkedinIcon.x + iconWidth + iconSpacing, yPos, 'discordIcon').setScale(0.25).setInteractive();
+          discordIcon.setInteractive().on('pointerdown', function(pointer) {
+            if (pointer.isDown) {
+                window.open('https://discordapp.com/users/92475534600073216', '_blank');
+            }
+        }, this);
+      }  
 else {
   let emailIcon = this.add.sprite(gameWidth - somePadding, somePadding, 'emailIcon').setOrigin(1, 0);
     emailIcon.y = 10; 
