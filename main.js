@@ -23,6 +23,9 @@ class UIScene extends Phaser.Scene {
     //load health lives atlas 
     this.load.atlas('lives', 'UI/lives.png', 'UI/lives.json');
 
+    //load the menu icon
+    this.load.image('menuIcon', 'menu.png');
+
     //load the email icon
     this.load.image('emailIcon', 'email.png');
 
@@ -103,52 +106,33 @@ class UIScene extends Phaser.Scene {
     let iconHorizontalSpacing = 70;  // Adjust as needed for horizontal spacing on mobile
     
     if (isMobileDevice()) {
-        // Top Row
-          const gameWidth = this.sys.game.config.width;
-          const gameHeight = this.sys.game.config.height;
-      
-          const iconSpacing = 60; // Space between icons
-      
-          // Assuming all icons have the same width after scaling
-          const iconWidth = 50 * 0.25;  // 50 is the original width of the icon, and 0.25 is the scale factor
-      
-          // Calculate total width of all icons and spaces
-          const totalWidth = 4 * iconWidth + 3 * iconSpacing;
-      
-          // Calculate starting x-position
-          const startX = (gameWidth - totalWidth) / 2;
-      
-          const bottomPadding = 30; // Space from the bottom of the screen
-          const yPos = gameHeight - iconWidth/2 - bottomPadding; // y-position for all icons
-      
-          let emailIcon = this.add.sprite(startX, yPos, 'emailIcon').setScale(0.25).setInteractive();
-          emailIcon.setInteractive().on('pointerdown', function(pointer) {
-            if (pointer.isDown) {
-                this.showContactMenu();
-            }
-         }, this);
-      
-          let githubIcon = this.add.sprite(emailIcon.x + iconWidth + iconSpacing, yPos, 'githubIcon').setScale(0.20).setInteractive();
-          githubIcon.setInteractive().on('pointerdown', function(pointer) {
-            if (pointer.isDown) {
-                window.open('https://github.com/KevinZer00/', '_blank');
-            }
-          }, this);
-      
-          let linkedinIcon = this.add.sprite(githubIcon.x + iconWidth + iconSpacing, yPos, 'linkedinIcon').setScale(0.20).setInteractive();
-          linkedinIcon.setInteractive().on('pointerdown', function(pointer) {
-            if (pointer.isDown) {
-                window.open('https://www.linkedin.com/in/kevinyu99/', '_blank');
-            }
-        }, this);
-      
-          let discordIcon = this.add.sprite(linkedinIcon.x + iconWidth + iconSpacing, yPos, 'discordIcon').setScale(0.25).setInteractive();
-          discordIcon.setInteractive().on('pointerdown', function(pointer) {
-            if (pointer.isDown) {
-                window.open('https://discordapp.com/users/92475534600073216', '_blank');
-            }
-        }, this);
-      }  
+      // Assuming you're inside your scene setup or create function:
+
+      const gameWidth = this.sys.game.config.width;
+      const gameHeight = this.sys.game.config.height;
+
+      // Menu Icon setup
+      let menuIcon = this.add.sprite(gameWidth / 2, gameHeight - 50, 'menuIcon').setScale(0.25).setInteractive();
+      menuIcon.on('pointerdown', this.toggleMenu, this);
+
+      // Other icons setup (initially hidden)
+      this.emailIcon = this.add.sprite(gameWidth / 2 - 60, gameHeight / 2, 'emailIcon').setScale(0.25).setVisible(false).setInteractive();
+      this.githubIcon = this.add.sprite(gameWidth / 2, gameHeight / 2, 'githubIcon').setScale(0.20).setVisible(false).setInteractive();
+      this.linkedinIcon = this.add.sprite(gameWidth / 2 + 60, gameHeight / 2, 'linkedinIcon').setScale(0.20).setVisible(false).setInteractive();
+      this.discordIcon = this.add.sprite(gameWidth / 2 + 120, gameHeight / 2, 'discordIcon').setScale(0.25).setVisible(false).setInteractive();
+
+      // Event listeners for other icons
+      this.emailIcon.on('pointerdown', () => this.showContactMenu());
+      this.githubIcon.on('pointerdown', function () {
+        window.open('https://github.com/KevinZer00/', '_blank');
+      });
+      this.linkedinIcon.on('pointerdown', function () {
+        window.open('https://www.linkedin.com/in/kevinyu99/', '_blank');
+      });
+      this.discordIcon.on('pointerdown', function () {
+        window.open('https://discordapp.com/users/92475534600073216', '_blank');
+      });
+    }
 else {
   let emailIcon = this.add.sprite(gameWidth - somePadding, somePadding, 'emailIcon').setOrigin(1, 0);
     emailIcon.y = 10; 
@@ -168,6 +152,7 @@ else {
     githubIcon.y = 15; 
     githubIcon.x = gameWidth - 100;
     githubIcon.setScale(0.20);
+    githubIcon.setDepth(500);
     githubIcon.setInteractive();
     githubIcon.on('pointerdown', function () {
       window.open('https://github.com/KevinZer00/', '_blank');
@@ -282,8 +267,20 @@ else {
     this.scene.pause('MyGame');
 }
 
+toggleMenu() {
+  const menu = document.getElementById('iconMenu');
+  if (menu.style.display === 'none' || menu.style.display === '') {
+      menu.style.display = 'flex';
+  } else {
+      menu.style.display = 'none';
+  }
+}
+
+
+
 
 }
+
 
 
 
