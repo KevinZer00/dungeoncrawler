@@ -818,7 +818,7 @@ create()
 
    //making the camera to follow the player
    this.cameras.main.startFollow(this.knight, true);
-   if (this.sys.game.config.width < 500) { // You can adjust this threshold as needed
+   if (this.sys.game.config.width < 450) { // You can adjust this threshold as needed
     this.cameras.main.zoom = 2; // Zoom out by 50%
 }
 else {
