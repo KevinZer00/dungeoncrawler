@@ -55,24 +55,31 @@ class UIScene extends Phaser.Scene {
 
     
       //health system 
-    this.hearts = this.add.group();
-    this.hearts.clear(true, true);
-    for (let i = 0; i < this.knight.health; i++) 
-    {
-      if (this.sys.game.config.width < 450) {
-        let heart = this.add.sprite(10 + i * 30, 10, 'lives', 'ui_heart_full.png');
-        heart.setOrigin(0, 0);
-        heart.setScale(2);
-        heart.fixedToCamera = true;
-        this.hearts.add(heart);
-      }
-      else {
-        let heart = this.add.sprite(10 + i * 50, 10, 'lives', 'ui_heart_full.png');
-        heart.setOrigin(0, 0);
-        heart.setScale(3.5);
-        heart.fixedToCamera = true;
-        this.hearts.add(heart);
-      }
+      let totalHeartsWidth = this.knight.health * 18 * 2.5;  // 45 is the width of one heart, 3 is the scale
+
+      // Step 2: Find the starting x-coordinate
+      let startX = (this.sys.game.config.width - totalHeartsWidth) / 2;
+      
+      this.hearts = this.add.group();
+      this.hearts.clear(true, true);
+      
+      for (let i = 0; i < this.knight.health; i++) 
+      {
+          if (this.sys.game.config.width < 450) {
+              // Step 3: Position each heart relative to the first
+              let heart = this.add.sprite(startX + i * 18 * 2.5, 10, 'lives', 'ui_heart_full.png');
+              heart.setOrigin(0, 0);
+              heart.setScale(3);
+              heart.fixedToCamera = true;
+              this.hearts.add(heart);
+          }
+          else {
+            let heart = this.add.sprite(10 + i * 50, 10, 'lives', 'ui_heart_full.png');
+            heart.setOrigin(0, 0);
+            heart.setScale(3.5);
+            heart.fixedToCamera = true;
+            this.hearts.add(heart);
+          }
     }
 
 
