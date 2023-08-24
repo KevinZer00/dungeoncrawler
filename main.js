@@ -112,7 +112,7 @@ class UIScene extends Phaser.Scene {
       const gameHeight = this.sys.game.config.height;
 
       // Menu Icon setup
-      let menuIcon = this.add.sprite(gameWidth / 2, gameHeight - 50, 'menuIcon').setScale(0.25).setInteractive();
+      let menuIcon = this.add.sprite(gameWidth / 2, gameHeight - 80, 'menuIcon').setScale(0.16).setInteractive();
       menuIcon.on('pointerdown', this.toggleMenu, this);
 
       // Other icons setup (initially hidden)
@@ -2186,8 +2186,8 @@ else
   const followRadius2 = 90;
   const followRadiusSwamp = 75;
   const followRadiusChort = 50;
-  const followSpeed = 40;
-  const followSpeed2 = 20;
+  const followSpeed = 20;
+  const followSpeed2 = 15;
   const threshold = 5;
 
 
