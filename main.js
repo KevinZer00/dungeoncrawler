@@ -112,7 +112,7 @@ class UIScene extends Phaser.Scene {
       const gameHeight = this.sys.game.config.height;
 
       // Menu Icon setup
-      let menuIcon = this.add.sprite(gameWidth / 2, gameHeight - 80, 'menuIcon').setScale(0.16).setInteractive();
+      let menuIcon = this.add.sprite(gameWidth / 2, gameHeight - 60, 'menuIcon').setScale(0.16).setInteractive();
       menuIcon.on('pointerdown', this.toggleMenu, this);
 
       // Other icons setup (initially hidden)
