@@ -55,31 +55,24 @@ class UIScene extends Phaser.Scene {
 
     
       //health system 
-      let totalHeartsWidth = this.knight.health * 18 * 2.5;  // 45 is the width of one heart, 3 is the scale
-
-      // Step 2: Find the starting x-coordinate
-      let startX = (this.sys.game.config.width - totalHeartsWidth) / 2;
-      
-      this.hearts = this.add.group();
-      this.hearts.clear(true, true);
-      
-      for (let i = 0; i < this.knight.health; i++) 
-      {
-          if (this.sys.game.config.width < 450) {
-              // Step 3: Position each heart relative to the first
-              let heart = this.add.sprite(startX + i * 18 * 2.5, 10, 'lives', 'ui_heart_full.png');
-              heart.setOrigin(0, 0);
-              heart.setScale(3);
-              heart.fixedToCamera = true;
-              this.hearts.add(heart);
-          }
-          else {
-            let heart = this.add.sprite(10 + i * 50, 10, 'lives', 'ui_heart_full.png');
-            heart.setOrigin(0, 0);
-            heart.setScale(3.5);
-            heart.fixedToCamera = true;
-            this.hearts.add(heart);
-          }
+    this.hearts = this.add.group();
+    this.hearts.clear(true, true);
+    for (let i = 0; i < this.knight.health; i++) 
+    {
+      if (this.sys.game.config.width < 450) {
+        let heart = this.add.sprite(10 + i * 30, 10, 'lives', 'ui_heart_full.png');
+        heart.setOrigin(0, 0);
+        heart.setScale(2);
+        heart.fixedToCamera = true;
+        this.hearts.add(heart);
+      }
+      else {
+        let heart = this.add.sprite(10 + i * 50, 10, 'lives', 'ui_heart_full.png');
+        heart.setOrigin(0, 0);
+        heart.setScale(3.5);
+        heart.fixedToCamera = true;
+        this.hearts.add(heart);
+      }
     }
 
 
@@ -107,7 +100,7 @@ class UIScene extends Phaser.Scene {
           const gameWidth = this.sys.game.config.width;
           const gameHeight = this.sys.game.config.height;
       
-          const iconSpacing = 60; // Space between icons
+          const iconSpacing = 55; // Space between icons
       
           // Assuming all icons have the same width after scaling
           const iconWidth = 50 * 0.25;  // 50 is the original width of the icon, and 0.25 is the scale factor
@@ -122,32 +115,24 @@ class UIScene extends Phaser.Scene {
           const yPos = gameHeight - iconWidth/2 - bottomPadding; // y-position for all icons
       
           let emailIcon = this.add.sprite(startX, yPos, 'emailIcon').setScale(0.25).setInteractive();
-          emailIcon.setInteractive().on('pointerdown', function(pointer) {
-            if (pointer.isDown) {
-                this.showContactMenu();
-            }
-         }, this);
+          emailIcon.on('pointerdown', () => this.showContactMenu());
+          emailIcon.on('pointerover', () => { this.sys.game.canvas.style.cursor = 'pointer'; });
+          emailIcon.on('pointerout', () => { this.sys.game.canvas.style.cursor = 'default'; });
       
-          let githubIcon = this.add.sprite(emailIcon.x + iconWidth + iconSpacing, yPos, 'githubIcon').setScale(0.20).setInteractive();
-          githubIcon.setInteractive().on('pointerdown', function(pointer) {
-            if (pointer.isDown) {
-                window.open('https://github.com/KevinZer00/', '_blank');
-            }
-          }, this);
+          let githubIcon = this.add.sprite(emailIcon.x + iconWidth + iconSpacing, yPos, 'githubIcon').setScale(0.25).setInteractive();
+          githubIcon.on('pointerdown', function () { window.open('https://github.com/KevinZer00/', '_blank'); });
+          githubIcon.on('pointerover', () => { this.sys.game.canvas.style.cursor = 'pointer'; });
+          githubIcon.on('pointerout', () => { this.sys.game.canvas.style.cursor = 'default'; });
       
-          let linkedinIcon = this.add.sprite(githubIcon.x + iconWidth + iconSpacing, yPos, 'linkedinIcon').setScale(0.20).setInteractive();
-          linkedinIcon.setInteractive().on('pointerdown', function(pointer) {
-            if (pointer.isDown) {
-                window.open('https://www.linkedin.com/in/kevinyu99/', '_blank');
-            }
-        }, this);
+          let linkedinIcon = this.add.sprite(githubIcon.x + iconWidth + iconSpacing, yPos, 'linkedinIcon').setScale(0.25).setInteractive();
+          linkedinIcon.on('pointerdown', function () { window.open('https://www.linkedin.com/in/kevinyu99/', '_blank'); });
+          linkedinIcon.on('pointerover', () => { this.sys.game.canvas.style.cursor = 'pointer'; });
+          linkedinIcon.on('pointerout', () => { this.sys.game.canvas.style.cursor = 'default'; });
       
           let discordIcon = this.add.sprite(linkedinIcon.x + iconWidth + iconSpacing, yPos, 'discordIcon').setScale(0.25).setInteractive();
-          discordIcon.setInteractive().on('pointerdown', function(pointer) {
-            if (pointer.isDown) {
-                window.open('https://discordapp.com/users/92475534600073216', '_blank');
-            }
-        }, this);
+          discordIcon.on('pointerdown', function () { window.open('https://discordapp.com/users/92475534600073216', '_blank'); });
+          discordIcon.on('pointerover', () => { this.sys.game.canvas.style.cursor = 'pointer'; });
+          discordIcon.on('pointerout', () => { this.sys.game.canvas.style.cursor = 'default'; });
       }  
 else {
   let emailIcon = this.add.sprite(gameWidth - somePadding, somePadding, 'emailIcon').setOrigin(1, 0);
@@ -329,14 +314,6 @@ class MyGame extends Phaser.Scene {
     
       this.scene.pause();
     };
-
-    const beginButton = document.getElementById('begin-button');
-    beginButton.addEventListener('click', () => {
-    // Hide the main menu
-    const mainMenuDiv = document.getElementById('main-menu');
-    mainMenuDiv.style.display = 'none';
-  
-  });
 
    
 
@@ -833,7 +810,7 @@ create()
 
    //making the camera to follow the player
    this.cameras.main.startFollow(this.knight, true);
-   if (this.sys.game.config.width < 450) { // You can adjust this threshold as needed
+   if (this.sys.game.config.width < 500) { // You can adjust this threshold as needed
     this.cameras.main.zoom = 2; // Zoom out by 50%
 }
 else {
@@ -1716,8 +1693,6 @@ function knightEnemyCollision (knight, enemy)
     rt.mask.invertAlpha = true
 
 
-
-
     if (isMobileDevice()) {
       this.joyStick = this.plugins.get('rexvirtualjoystickplugin').add(this, {
         x: this.sys.game.config.width * 0.6,
@@ -1790,8 +1765,6 @@ function knightEnemyCollision (knight, enemy)
 
 update()
 {
-
-
   let isJoystickActive = false;
 
 
