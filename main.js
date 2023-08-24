@@ -100,7 +100,7 @@ class UIScene extends Phaser.Scene {
           const gameWidth = this.sys.game.config.width;
           const gameHeight = this.sys.game.config.height;
       
-          const iconSpacing = 20; // Space between icons
+          const iconSpacing = 60; // Space between icons
       
           // Assuming all icons have the same width after scaling
           const iconWidth = 50 * 0.25;  // 50 is the original width of the icon, and 0.25 is the scale factor
@@ -111,20 +111,20 @@ class UIScene extends Phaser.Scene {
           // Calculate starting x-position
           const startX = (gameWidth - totalWidth) / 2;
       
-          const bottomPadding = 20; // Space from the bottom of the screen
+          const bottomPadding = 30; // Space from the bottom of the screen
           const yPos = gameHeight - iconWidth/2 - bottomPadding; // y-position for all icons
       
-          let emailIcon = this.add.sprite(startX, yPos, 'emailIcon').setScale(0.15).setInteractive();
+          let emailIcon = this.add.sprite(startX, yPos, 'emailIcon').setScale(0.25).setInteractive();
           emailIcon.on('pointerdown', () => this.showContactMenu());
           emailIcon.on('pointerover', () => { this.sys.game.canvas.style.cursor = 'pointer'; });
           emailIcon.on('pointerout', () => { this.sys.game.canvas.style.cursor = 'default'; });
       
-          let githubIcon = this.add.sprite(emailIcon.x + iconWidth + iconSpacing, yPos, 'githubIcon').setScale(0.25).setInteractive();
+          let githubIcon = this.add.sprite(emailIcon.x + iconWidth + iconSpacing, yPos, 'githubIcon').setScale(0.20).setInteractive();
           githubIcon.on('pointerdown', function () { window.open('https://github.com/KevinZer00/', '_blank'); });
           githubIcon.on('pointerover', () => { this.sys.game.canvas.style.cursor = 'pointer'; });
           githubIcon.on('pointerout', () => { this.sys.game.canvas.style.cursor = 'default'; });
       
-          let linkedinIcon = this.add.sprite(githubIcon.x + iconWidth + iconSpacing, yPos, 'linkedinIcon').setScale(0.25).setInteractive();
+          let linkedinIcon = this.add.sprite(githubIcon.x + iconWidth + iconSpacing, yPos, 'linkedinIcon').setScale(0.20).setInteractive();
           linkedinIcon.on('pointerdown', function () { window.open('https://www.linkedin.com/in/kevinyu99/', '_blank'); });
           linkedinIcon.on('pointerover', () => { this.sys.game.canvas.style.cursor = 'pointer'; });
           linkedinIcon.on('pointerout', () => { this.sys.game.canvas.style.cursor = 'default'; });
@@ -314,6 +314,14 @@ class MyGame extends Phaser.Scene {
     
       this.scene.pause();
     };
+
+    const beginButton = document.getElementById('begin-button');
+    beginButton.addEventListener('click', () => {
+    // Hide the main menu
+    const mainMenuDiv = document.getElementById('main-menu');
+    mainMenuDiv.style.display = 'none';
+  
+  });
 
    
 
@@ -1693,10 +1701,21 @@ function knightEnemyCollision (knight, enemy)
     rt.mask.invertAlpha = true
 
 
+    this.activePointers = {};
+    this.input.on('pointerdown', (pointer) => {
+      this.activePointers[pointer.id] = pointer;
+  });
+
+  this.input.on('pointerup', (pointer) => {
+    delete this.activePointers[pointer.id];
+});
+
+
+
     if (isMobileDevice()) {
       this.joyStick = this.plugins.get('rexvirtualjoystickplugin').add(this, {
         x: this.sys.game.config.width * 0.6,
-        y: this.sys.game.config.height * 0.625,
+        y: this.sys.game.config.height * 0.655,
         radius: 15,
         base: this.add.circle(0, 0, 20, 0x888888),
         thumb: this.add.circle(0, 0, 10, 0xcccccc),
@@ -1712,7 +1731,7 @@ function knightEnemyCollision (knight, enemy)
 
 
   if (isMobileDevice()) {
-    this.attackButton = this.add.circle(this.sys.game.config.width * 0.38, this.sys.game.config.height * 0.625, 15, 0x8B4513);
+    this.attackButton = this.add.circle(this.sys.game.config.width * 0.38, this.sys.game.config.height * 0.655, 15, 0x8B4513);
     this.attackButtonText = this.add.text(this.attackButton.x, this.attackButton.y, "ATK", {
       font: "10px Arial",
       fill: "#ffffff"
@@ -1734,7 +1753,7 @@ function knightEnemyCollision (knight, enemy)
 
 
   if (isMobileDevice()) {
-    this.openChestButton = this.add.circle(this.sys.game.config.width * 0.465, this.sys.game.config.height * 0.625, 15, 0x8B4513);
+    this.openChestButton = this.add.circle(this.sys.game.config.width * 0.465, this.sys.game.config.height * 0.655, 15, 0x8B4513);
     this.openButtonText = this.add.text(this.openChestButton.x, this.openChestButton.y, "OPEN", {
       font: "10px Arial",
       fill: "#ffffff"
@@ -1765,6 +1784,15 @@ function knightEnemyCollision (knight, enemy)
 
 update()
 {
+  for (let id in this.activePointers) {
+    let pointer = this.activePointers[id];
+
+    if (this.attackButton.getBounds().contains(pointer.x, pointer.y)) {
+        this.performAttack();
+    }
+}
+
+
   let isJoystickActive = false;
 
 
