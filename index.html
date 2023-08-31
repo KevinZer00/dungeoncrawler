@@ -12,11 +12,24 @@
 <body>
     <div class = "game-container">
         <script type = "module" src = "main.js"></script>
-        <div id = "main-menu">
+        <div id = "main-menu1">
             <div id = "description1">
-                Greetings! 
+                Greetings!
                 <br>
-                Welcome to Kevin's Dungeon! In here, you will find deadly traps, monsters, treasure chests, and MORE monsters!
+                Thank you for checking out my page! My name is Kevin and welcome to my portfolio! I graduated from UC Merced with my Bachelor's Degree
+                in Applied Mathematics in 2022. However, it was not until after graduation that I coincidentally discovered the world of web development.
+                I became intrigued and wanted to learn more about how to make my very own website! Thus, my journey in front-end web development began!
+                Most of my knowledge is self-taught through various sources such as The Odin Project and YouTube. I have experience in HTML, CSS, JavaScript, 
+                and I have played around with frameworks such as React, Three.JS, and phaser.JS (this game was built using this!). To proceed, please click "NEXT".
+            </div>
+            <button id = "next-button">
+                NEXT
+            </button>
+        </div>
+
+        <div id = "main-menu2">
+            <div id = "description2">
+                In here, you will find deadly traps, monsters, treasure chests, and MORE monsters!
                 You have been carefully chosen by the Council to locate all four chests hidden within these dangerous walls. 
                 Legend has it that each chest guides the lucky adventurer to a project demo.
                 If you are ready to traverse through the perils of this dungeon, select "BEGIN!" 
@@ -27,13 +40,16 @@
             </button>
         </div>
 
-        <div id="iconMenu" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: #FDF5E6; border: 10px solid #8B5A2B; border-radius: 10px; padding: 20px; display: none; justify-content: center; align-items: center; flex-direction: row; gap: 20px;">
-            <img src="email.png" id="emailIcon" style="width: 50px; cursor: pointer;" onclick="window.location.href='mailto:kevinyuzer0@gmail.com'">
-            <img src="github.png" id="githubIcon" style="width: 40px; cursor: pointer;" onclick="window.open('https://github.com/KevinZer00/', '_blank')">
-            <img src="linkedin.png" id="linkedinIcon" style="width: 40px; cursor: pointer;" onclick="window.open('https://www.linkedin.com/in/kevinyu99/', '_blank')">
-            <img src="discord.png" id="discordIcon" style="width: 50px; cursor: pointer;" onclick="window.open('https://discordapp.com/users/92475534600073216', '_blank')">
+        <div id="iconMenu" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: #FDF5E6; border: 4px solid #8B5A2B; border-radius: 10px; padding: 20px; display: none; flex-direction: column; align-items: center;">
+            <div id="menu-title">SOCIALS</div>
+            <div style="display: flex; justify-content: center; align-items: center; flex-direction: row; gap: 20px;">
+                <img src="email.png" id="emailIcon" style="width: 50px; cursor: pointer;" onclick="window.location.href='mailto:kevinyuzer0@gmail.com'">
+                <img src="github.png" id="githubIcon" style="width: 40px; cursor: pointer;" onclick="window.open('https://github.com/KevinZer00/', '_blank')">
+                <img src="linkedin.png" id="linkedinIcon" style="width: 40px; cursor: pointer;" onclick="window.open('https://www.linkedin.com/in/kevinyu99/', '_blank')">
+                <img src="discord.png" id="discordIcon" style="width: 50px; cursor: pointer;" onclick="window.open('https://discordapp.com/users/92475534600073216', '_blank')">
+            </div>
+            <button id="close-button" style="margin-top: 20px; cursor: pointer;">Close</button>
         </div>
-        
         
     </div>
     

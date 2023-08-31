@@ -90,7 +90,7 @@ body, html {
     background-color: #A0522D;
   }
 
-  #main-menu {
+  #main-menu1 {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -105,12 +105,56 @@ body, html {
     border-radius: 10px;
     box-shadow: 2px 2px 2px #000;
     overflow-y: hidden;
+    z-index: 100;
+}
+
+#main-menu2 {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 800px;
+  height: 600px;
+  font-family: 'Dungeon';
+  text-align: center;
+  padding: 2em;
+  background-color: #FDF5E6;
+  border: 10px solid #8B5A2B;
+  border-radius: 10px;
+  box-shadow: 2px 2px 2px #000;
+  overflow-y: hidden;
 }
 
   #description1 {
     font-size: 36px;
     text-align: center;
     line-height: 1.2;
+  }
+
+  #description2 {
+    align-items: center;
+    font-size: 36px;
+    text-align: center;
+    line-height: 1.2;
+  }
+
+
+  #next-button {
+    margin:auto;
+    display:flex;
+    width: 10em;
+    justify-content:center;
+    font-family: 'Dungeon';
+    font-size: 40px;
+    color: #fff;
+    background-color: #8B4513;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+    box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+    margin-top: 2em;
   }
 
   #begin-button {
@@ -185,7 +229,14 @@ body, html {
       width: 60vw;
     }
 
-    #main-menu {
+    #main-menu1 {
+      height: 98vh;
+      width: 95vw;
+      padding: 0em;
+      overflow: hidden;
+    }
+
+    #main-menu2 {
       height: 98vh;
       width: 95vw;
       padding: 0em;
@@ -194,9 +245,22 @@ body, html {
 
     #description1 {
       padding: 1em;
-      font-size: 30px;
+      font-size: 1.5em;
       width: 80vw;
       margin: auto;
+    }
+
+    #description2 {
+      top: 100%;
+      padding: 1em;
+      font-size: 1.75em;
+      width: 80vw;
+      margin: auto;
+    }
+
+    #next-button {
+      width: 30vw;
+      margin-top: 0em;
     }
 
     #begin-button {
@@ -215,6 +279,24 @@ body, html {
       width: 50vw;
     }
 
+    #close-button {
+      font-family: 'Dungeon';
+      font-size: 40px;
+      color: #fff;
+      background-color: #8B4513;
+      padding: 5px 10px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      text-align: center;
+      box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+    }
     
+    #menu-title {
+      font-family: 'Dungeon';
+      font-size: 36px;
+      font-weight: bold;
+      padding-bottom: 0.5em;
+    }
   }
   

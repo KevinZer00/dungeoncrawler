@@ -24,7 +24,7 @@ class UIScene extends Phaser.Scene {
     this.load.atlas('lives', 'UI/lives.png', 'UI/lives.json');
 
     //load the menu icon
-    this.load.image('menuIcon', 'menu.png');
+    this.load.image('menuIcon', 'person.png');
 
     //load the email icon
     this.load.image('emailIcon', 'email.png');
@@ -111,8 +111,9 @@ class UIScene extends Phaser.Scene {
       const gameWidth = this.sys.game.config.width;
       const gameHeight = this.sys.game.config.height;
 
+
       // Menu Icon setup
-      let menuIcon = this.add.sprite(gameWidth / 2, gameHeight - 60, 'menuIcon').setScale(0.16).setInteractive();
+      let menuIcon = this.add.sprite(gameWidth / 2, this.sys.game.config.width * 0.25, 'menuIcon').setScale(0.16).setInteractive();
       menuIcon.on('pointerdown', this.toggleMenu, this);
 
       // Other icons setup (initially hidden)
@@ -132,8 +133,22 @@ class UIScene extends Phaser.Scene {
       this.discordIcon.on('pointerdown', function () {
         window.open('https://discordapp.com/users/92475534600073216', '_blank');
       });
+      
+      document.getElementById('close-button').addEventListener('click', () => {
+        const menu = document.getElementById('iconMenu');
+        menu.style.display = 'none';
+      });
     }
 else {
+
+  let graphics = this.add.graphics({ lineStyle: { width: 4, color: 0x8B5A2B }, fillStyle: { color: 0xFDF5E6 } });
+  const rectX = gameWidth - 340; 
+  const rectY = 5; 
+  const rectWidth = 340;  
+  const rectHeight = 70;  
+  const cornerRadius = 10;
+  graphics.fillRoundedRect(rectX, rectY, rectWidth, rectHeight, cornerRadius);
+  graphics.strokeRoundedRect(rectX, rectY, rectWidth, rectHeight, cornerRadius);
   let emailIcon = this.add.sprite(gameWidth - somePadding, somePadding, 'emailIcon').setOrigin(1, 0);
     emailIcon.y = 10; 
     emailIcon.x = gameWidth - 10;
@@ -327,13 +342,20 @@ class MyGame extends Phaser.Scene {
       this.scene.pause();
     };
 
+    const nextButton = document.getElementById('next-button');
+    nextButton.addEventListener('click', () => {
+        const mainMenu1Div = document.getElementById('main-menu1');
+        const mainMenu2Div = document.getElementById('main-menu2');
+        mainMenu1Div.style.display = 'none';
+        mainMenu2Div.style.display = 'block';
+    });
+    
+    // When the "BEGIN" button is clicked, hide main-menu2
     const beginButton = document.getElementById('begin-button');
     beginButton.addEventListener('click', () => {
-    // Hide the main menu
-    const mainMenuDiv = document.getElementById('main-menu');
-    mainMenuDiv.style.display = 'none';
-  
-  });
+        const mainMenu2Div = document.getElementById('main-menu2');
+        mainMenu2Div.style.display = 'none';
+    });
 
    
 
@@ -1714,30 +1736,35 @@ function knightEnemyCollision (knight, enemy)
 
 
 
-
     if (isMobileDevice()) {
       this.joyStick = this.plugins.get('rexvirtualjoystickplugin').add(this, {
         x: this.sys.game.config.width * 0.6,
         y: this.sys.game.config.height * 0.655,
         radius: 15,
-        base: this.add.circle(0, 0, 20, 0x888888),
-        thumb: this.add.circle(0, 0, 10, 0xcccccc),
+        base: this.add.circle(0, 0, 20, 0xFDF5E6),
+        thumb: this.add.circle(0, 0, 10, 0xff0000),
         dir: '8dir',
         forceMin: 16,
         fixed: true,
         enable: true
-    });
-    console.log("Joystick initialized:", this.joyStick);
-    this.joyStick.base.setDepth(2);
-    this.joyStick.thumb.setDepth(3);
-  }
+      });
+     
+      console.log("Joystick initialized:", this.joyStick);
+      this.joyStick.base.setDepth(2);
+      this.joyStick.thumb.setDepth(3);
+
+    }
+    
+    
+    
+    
 
 
   if (isMobileDevice()) {
-    this.attackButton = this.add.circle(this.sys.game.config.width * 0.38, this.sys.game.config.height * 0.655, 15, 0x8B4513);
+    this.attackButton = this.add.circle(this.sys.game.config.width * 0.37, this.sys.game.config.height * 0.655, 15, 0xFDF5E6);
     this.attackButtonText = this.add.text(this.attackButton.x, this.attackButton.y, "ATK", {
       font: "10px Arial",
-      fill: "#ffffff"
+      fill: "#000000"
     }).setOrigin(0.5, 0.5);
     this.attackButton.setInteractive();
     this.attackButton.setScrollFactor(0);
@@ -1756,10 +1783,10 @@ function knightEnemyCollision (knight, enemy)
 
 
   if (isMobileDevice()) {
-    this.openChestButton = this.add.circle(this.sys.game.config.width * 0.465, this.sys.game.config.height * 0.655, 15, 0x8B4513);
+    this.openChestButton = this.add.circle(this.sys.game.config.width * 0.465, this.sys.game.config.height * 0.655, 15, 0xFDF5E6);
     this.openButtonText = this.add.text(this.openChestButton.x, this.openChestButton.y, "OPEN", {
       font: "10px Arial",
-      fill: "#ffffff"
+      fill: "#000000"
     }).setOrigin(0.5, 0.5); 
     this.openButtonText.setPosition(this.openChestButton.x, this.openChestButton.y);
     this.openChestButton.setInteractive();
