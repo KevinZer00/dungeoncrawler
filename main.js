@@ -26,17 +26,30 @@ class UIScene extends Phaser.Scene {
     //load the menu icon
     this.load.image('menuIcon', 'person.png');
 
-    //load the email icon
+    //load the email (black) icon
     this.load.image('emailIcon', 'email.png');
 
-    //load the Github icon
+    //load the Github (black) icon
     this.load.image('githubIcon', 'github.png');
 
-    //load the LinkedIn icon
+    //load the LinkedIn (black) icon
     this.load.image('linkedinIcon', 'linkedin.png');
 
-    //load the Discord icon
+    //load the Discord (black) icon
     this.load.image('discordIcon', 'discord.png');
+
+
+    //load the email icon
+    this.load.image('emailIcon2', 'email2.png');
+
+    //load the Github icon
+    this.load.image('githubIcon2', 'github2.png');
+
+    //load the LinkedIn icon
+    this.load.image('linkedinIcon2', 'linkedin2.png');
+
+    //load the Discord icon
+    this.load.image('discordIcon2', 'discord2.png');
 
   }
 
@@ -88,12 +101,11 @@ class UIScene extends Phaser.Scene {
 
    if (!isMobileDevice()) {
     const textYPosition =  + 100;
-
     // Add text for the keyboard controls.
-    this.add.text(20, textYPosition, 'CONTROLS:', { font: '24px Arial', fill: '#ffffff' });
-    this.add.text(20, textYPosition + 40, 'Arrow Keys: Move', { font: '24px Arial', fill: '#ffffff' });
-    this.add.text(20, textYPosition + 80, 'F Key: Open Chest', { font: '24px Arial', fill: '#ffffff' });
-    this.add.text(20, textYPosition + 120, 'Space: Attack', { font: '24px Arial', fill: '#ffffff' });
+    this.add.text(20, textYPosition, 'CONTROLS:', { font: '30px Dungeon', fill: '#ffffff' });
+    this.add.text(20, textYPosition + 40, 'Arrow Keys: Move', { font: '30px Dungeon', fill: '#ffffff' });
+    this.add.text(20, textYPosition + 80, 'F Key: Open Chest', { font: '30px Dungeon', fill: '#ffffff' });
+    this.add.text(20, textYPosition + 120, 'Space: Attack', { font: '30px Dungeon', fill: '#ffffff' });
    }
         
 
@@ -141,15 +153,7 @@ class UIScene extends Phaser.Scene {
     }
 else {
 
-  let graphics = this.add.graphics({ lineStyle: { width: 4, color: 0x8B5A2B }, fillStyle: { color: 0xFDF5E6 } });
-  const rectX = gameWidth - 340; 
-  const rectY = 5; 
-  const rectWidth = 340;  
-  const rectHeight = 70;  
-  const cornerRadius = 10;
-  graphics.fillRoundedRect(rectX, rectY, rectWidth, rectHeight, cornerRadius);
-  graphics.strokeRoundedRect(rectX, rectY, rectWidth, rectHeight, cornerRadius);
-  let emailIcon = this.add.sprite(gameWidth - somePadding, somePadding, 'emailIcon').setOrigin(1, 0);
+  let emailIcon = this.add.sprite(gameWidth - somePadding, somePadding, 'emailIcon2').setOrigin(1, 0);
     emailIcon.y = 10; 
     emailIcon.x = gameWidth - 10;
     emailIcon.on('pointerdown', () => this.showContactMenu());
@@ -163,7 +167,7 @@ else {
       this.sys.game.canvas.style.cursor = 'default';
     });
 
-    let githubIcon = this.add.sprite(gameWidth - somePadding, somePadding, 'githubIcon').setOrigin(1, 0);
+    let githubIcon = this.add.sprite(gameWidth - somePadding, somePadding, 'githubIcon2').setOrigin(1, 0);
     githubIcon.y = 15; 
     githubIcon.x = gameWidth - 100;
     githubIcon.setScale(0.20);
@@ -180,7 +184,7 @@ else {
       this.sys.game.canvas.style.cursor = 'default';
     });
 
-    let linkedinIcon = this.add.sprite(gameWidth - somePadding, somePadding, 'linkedinIcon').setOrigin(1, 0);
+    let linkedinIcon = this.add.sprite(gameWidth - somePadding, somePadding, 'linkedinIcon2').setOrigin(1, 0);
     linkedinIcon.y = 15; 
     linkedinIcon.x = gameWidth - 180;
     linkedinIcon.setScale(0.20);
@@ -196,7 +200,7 @@ else {
       this.sys.game.canvas.style.cursor = 'default';
     });
 
-    let discordIcon = this.add.sprite(gameWidth - somePadding, somePadding, 'discordIcon').setOrigin(1, 0);
+    let discordIcon = this.add.sprite(gameWidth - somePadding, somePadding, 'discordIcon2').setOrigin(1, 0);
     discordIcon.y = 10; 
     discordIcon.x = gameWidth - 260;
     discordIcon.setScale(0.25);
