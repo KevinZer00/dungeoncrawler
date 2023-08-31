@@ -134,7 +134,7 @@ class UIScene extends Phaser.Scene {
         window.open('https://discordapp.com/users/92475534600073216', '_blank');
       });
       
-      document.getElementById('close-button').addEventListener('click', () => {
+      document.getElementById('close-button2').addEventListener('click', () => {
         const menu = document.getElementById('iconMenu');
         menu.style.display = 'none';
       });
