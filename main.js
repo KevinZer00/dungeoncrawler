@@ -81,7 +81,7 @@ class UIScene extends Phaser.Scene {
       
       for (let i = 0; i < this.knight.health; i++) 
       {
-          if (this.sys.game.config.width < 450) {
+          if (this.sys.game.config.width < 600) {
               // Step 3: Position each heart relative to the first
               let heart = this.add.sprite(startX + i * 18 * 2.5, 10, 'lives', 'ui_heart_full.png');
               heart.setOrigin(0, 0);
@@ -102,10 +102,10 @@ class UIScene extends Phaser.Scene {
    if (!isMobileDevice()) {
     const textYPosition =  + 100;
     // Add text for the keyboard controls.
-    this.add.text(20, textYPosition, 'CONTROLS:', { font: '30px Dungeon', fill: '#ffffff' });
-    this.add.text(20, textYPosition + 40, 'Arrow Keys: Move', { font: '30px Dungeon', fill: '#ffffff' });
-    this.add.text(20, textYPosition + 80, 'F Key: Open Chest', { font: '30px Dungeon', fill: '#ffffff' });
-    this.add.text(20, textYPosition + 120, 'Space: Attack', { font: '30px Dungeon', fill: '#ffffff' });
+    this.add.text(20, textYPosition, 'CONTROLS:', { font: '18px Dungeon', fill: '#ffffff' });
+    this.add.text(20, textYPosition + 40, 'Arrow Keys: Move', { font: '18px Dungeon', fill: '#ffffff' });
+    this.add.text(20, textYPosition + 80, 'F Key: Open Chest', { font: '18px Dungeon', fill: '#ffffff' });
+    this.add.text(20, textYPosition + 120, 'Space: Attack', { font: '18px Dungeon', fill: '#ffffff' });
    }
         
 
@@ -118,23 +118,22 @@ class UIScene extends Phaser.Scene {
     let iconHorizontalSpacing = 70;  // Adjust as needed for horizontal spacing on mobile
     
     if (isMobileDevice()) {
-      // Assuming you're inside your scene setup or create function:
 
       const gameWidth = this.sys.game.config.width;
       const gameHeight = this.sys.game.config.height;
 
 
-      // Menu Icon setup
+      //menu icon setup
       let menuIcon = this.add.sprite(gameWidth / 2, this.sys.game.config.width * 0.25, 'menuIcon').setScale(0.16).setInteractive();
       menuIcon.on('pointerdown', this.toggleMenu, this);
 
-      // Other icons setup (initially hidden)
+      //scials icons setup
       this.emailIcon = this.add.sprite(gameWidth / 2 - 60, gameHeight / 2, 'emailIcon').setScale(0.25).setVisible(false).setInteractive();
       this.githubIcon = this.add.sprite(gameWidth / 2, gameHeight / 2, 'githubIcon').setScale(0.20).setVisible(false).setInteractive();
       this.linkedinIcon = this.add.sprite(gameWidth / 2 + 60, gameHeight / 2, 'linkedinIcon').setScale(0.20).setVisible(false).setInteractive();
       this.discordIcon = this.add.sprite(gameWidth / 2 + 120, gameHeight / 2, 'discordIcon').setScale(0.25).setVisible(false).setInteractive();
 
-      // Event listeners for other icons
+      //event listeners for other icons
       this.emailIcon.on('pointerdown', () => this.showContactMenu());
       this.githubIcon.on('pointerdown', function () {
         window.open('https://github.com/KevinZer00/', '_blank');
@@ -238,22 +237,22 @@ else {
   }
 
   update() {
-    // check if the knight's health has changed
+    //check if the knight's health has changed
     if (this.knight.health !== this.prevHealth) {
-      // get the most recent heart sprite and update its frame
+      //get the most recent heart sprite and update its frame
       let heartIndex = this.knight.health;
       if (heartIndex >= 0 && heartIndex < this.hearts.children.size) {
         let heart = this.hearts.children.entries[heartIndex];
         heart.anims.play('heart_empty');
-        // adjust the sprite's origin point to be at the center
+        //adjust the sprite's origin point to be at the center
       heart.setOrigin(0.35, 0.35);
 
-      // adjust the sprite's position to keep it centered
+      //adjust the sprite's position to keep it centered
       heart.x += (heart.displayWidth / 2) - (heart.width / 2);
       heart.y += (heart.displayHeight / 2) - (heart.height / 2);
       }
   
-      // update the previous health variable
+      //update the previous health variable
       this.prevHealth = this.knight.health;
     }
 
@@ -261,28 +260,28 @@ else {
   }
 
   showContactMenu() {
-    // Create a div for the contact menu
+    //create a div for the contact menu
     const menuDiv = document.createElement('div');
     menuDiv.setAttribute('id', 'contact-menu');
 
-    // HTML content for the contact menu
+    //HTML content for the contact menu
     menuDiv.innerHTML = `
         <p>Want to send me an email? Let's chat!</p>
         <a href="mailto:kevinyuzer0@gmail.com">Send an Email</a><p>
         <button id="closeContactMenu">Close</button>
     `;
 
-    // Append the contact menu to the document body
+    //append the contact menu to the document body
     document.body.appendChild(menuDiv);
 
-    // Add an event listener to the close button to remove the menu and resume the game
+    //add an event listener to the close button to remove the menu and resume the game
     const closeButton = document.getElementById('closeContactMenu');
     closeButton.addEventListener('click', () => {
         menuDiv.remove();
         this.scene.resume('MyGame');  // Resume the game if it was paused
     });
 
-    // Pause the game while the contact menu is active
+    //pause the game while the contact menu is active
     this.scene.pause('MyGame');
 }
 
@@ -331,7 +330,7 @@ class MyGame extends Phaser.Scene {
           menuText = '<p>You have opened chest 4!</p> This is the dungeon crawler game you are playing! This portfolio was built using Phaser.JS, a framework designed specifically for 2D games! In this project, there are collisions, enemy logics, player damage, health and movement controls implemented. The assets are obtained through the itch.io asset store.';
           menuLink = '<p><a href = "https://github.com/KevinZer00/dungeoncrawler.git/" target = "_blank">Dungeon Crawler Github Repository</a><p>'
           break;
-        // Add more cases for additional chests
+        //add more cases for additional chests
       }
       menuDiv.innerHTML = menuText + menuLink + '<button id="close-button" class="close-button">Close</button>';
     
@@ -354,7 +353,7 @@ class MyGame extends Phaser.Scene {
         mainMenu2Div.style.display = 'block';
     });
     
-    // When the "BEGIN" button is clicked, hide main-menu2
+    //when the "BEGIN" button is clicked, hide main-menu2
     const beginButton = document.getElementById('begin-button');
     beginButton.addEventListener('click', () => {
         const mainMenu2Div = document.getElementById('main-menu2');
@@ -365,7 +364,7 @@ class MyGame extends Phaser.Scene {
 
 this.gameOver = function()
 {
-  // Check if the gameOverDiv already exists and remove it
+  //check if the gameOverDiv already exists and remove it
   const existingGameOverDiv = document.getElementById('game-over');
   if (existingGameOverDiv) {
     existingGameOverDiv.remove();
@@ -380,14 +379,14 @@ this.gameOver = function()
 
   const restartButton = document.getElementById('restart-button');
   
-  // Remove any existing event listener
+  //remove any existing event listener
   restartButton.removeEventListener('click', this.restartGame);
 
-  // Add the event listener
+  //add the event listener
   restartButton.addEventListener('click', this.restartGame.bind(this));
 };
 
-// Separate restart logic into its own function
+//separate restart logic into its own function
 this.restartGame = function() {
   game.destroy(true);
   game = new Phaser.Game(config);
@@ -772,7 +771,7 @@ create()
    this.chest1Text = this.add.text(this.chest1.x, this.chest1.y - 20, 'Open me!',
   {
     fontFamily: 'Dungeon',
-    fontSize: '30px',
+    fontSize: '18px',
     color: '#fff',
   });
    this.chest1Text.setOrigin(0.5, 0.25);
@@ -782,7 +781,7 @@ create()
    this.chest2Text = this.add.text(this.chest2.x, this.chest2.y - 20, 'Open me!',
    {
      fontFamily: 'Dungeon',
-     fontSize: '30px',
+     fontSize: '18px',
      color: '#fff',
    });
    this.chest2Text.setOrigin(0.5, 0.25);
@@ -792,7 +791,7 @@ create()
    this.chest3Text = this.add.text(this.chest3.x, this.chest3.y - 20, 'Open me!',
    {
      fontFamily: 'Dungeon',
-     fontSize: '30px',
+     fontSize: '18px',
      color: '#fff',
    });
    this.chest3Text.setOrigin(0.5, 0.25);
@@ -802,7 +801,7 @@ create()
    this.chest4Text = this.add.text(this.chest4.x, this.chest4.y - 20, 'Open me!',
    {
      fontFamily: 'Dungeon',
-     fontSize: '30px',
+     fontSize: '18px',
      color: '#fff',
    });
    this.chest4Text.setOrigin(0.5, 0.25);
@@ -856,7 +855,7 @@ create()
 
    //making the camera to follow the player
    this.cameras.main.startFollow(this.knight, true);
-   if (this.sys.game.config.width < 450) { // You can adjust this threshold as needed
+   if (this.sys.game.config.width < 600) { // You can adjust this threshold as needed
     this.cameras.main.zoom = 2; // Zoom out by 50%
 }
 else {

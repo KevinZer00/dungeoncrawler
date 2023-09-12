@@ -7,7 +7,7 @@ body, html {
 
 @font-face {
     font-family: 'Dungeon';
-    src: url('PKMN-Mystery-Dungeon.ttf');
+    src: url('DePixelBreit.ttf');
 }
 
 #menu {
@@ -22,9 +22,9 @@ body, html {
     box-shadow: 2px 2px 2px #000;
     padding: 15px;
     font-family: 'Dungeon';
-    font-size: 30px;
+    font-size: 18px;
     text-align: center;
-    line-height: 1.2;
+    line-height: 2;
     overflow-x: hidden;
 }
 
@@ -46,19 +46,19 @@ body, html {
 }
 
 #contact-menu p {
-  font-size: 40px;
+  font-size: 18px;
   text-align: center;
 }
 
 #contact-menu a {
-  font-size: 30px;
+  font-size: 18px;
   font-weight: bold;
   text-align: center;
 }
 
 #closeContactMenu {
   font-family: 'Dungeon';
-    font-size: 30px;
+    font-size: 18px;
     color: #fff;
     background-color: #8B4513;
     padding: 5px 10px;
@@ -70,16 +70,27 @@ body, html {
 }
 
 #close-button {
-    font-family: 'Dungeon';
-    font-size: 40px;
-    color: #fff;
-    background-color: #8B4513;
-    padding: 5px 10px;
-    border: none;
-    cursor: pointer;
-    text-align: center;
-    box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
-  }
+  font-family: 'Dungeon';
+  padding: 10px 20px;
+  background-color: #FF0000;
+  border: 3px solid #000000;
+  color: #FFFFFF;
+  text-decoration: none;
+  font-size: 16px;
+  box-shadow: 
+      3px 3px 0px #000000,
+      6px 6px 0px #000000,
+      9px 9px 0px #000000;
+}
+
+
+#close-button:active {
+  box-shadow: 
+  1px 1px 0px #000000,
+  2px 2px 0px #000000,
+  3px 3px 0px #000000;
+  transform: translateY(6px) translateX(6px);
+}
   
   
   .close-button:hover {
@@ -99,7 +110,6 @@ body, html {
     background-color: #FDF5E6;
     border: 10px solid #8B5A2B;
     box-shadow: 2px 2px 2px #000;
-    overflow-y: hidden;
     z-index: 100;
 }
 
@@ -116,56 +126,69 @@ body, html {
   background-color: #FDF5E6;
   border: 10px solid #8B5A2B;
   box-shadow: 2px 2px 2px #000;
-  overflow-y: hidden;
 }
 
   #description1 {
-    font-size: 36px;
+    font-size: 18px;
     text-align: center;
-    line-height: 1.2;
+    line-height: 2;
   }
 
   #description2 {
     align-items: center;
-    font-size: 36px;
+    font-size: 18px;
     text-align: center;
-    line-height: 1.2;
+    line-height: 2;
   }
 
 
   #next-button {
-    margin:auto;
-    display:flex;
-    width: 10em;
-    justify-content:center;
+    margin-top: 5em;
     font-family: 'Dungeon';
-    font-size: 40px;
-    color: #fff;
-    background-color: #8B4513;
-    padding: 5px 10px;
-    border: none;
-    cursor: pointer;
-    text-align: center;
-    box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
-    margin-top: 2em;
-  }
+    padding: 10px 20px;
+    background-color: #FF0000;
+    border: 3px solid #000000;
+    color: #FFFFFF;
+    text-decoration: none;
+    font-size: 16px;
+    box-shadow: 
+        3px 3px 0px #000000,
+        6px 6px 0px #000000,
+        9px 9px 0px #000000;
+}
 
-  #begin-button {
-    margin:auto;
-    display:flex;
-    width: 10em;
-    justify-content:center;
-    font-family: 'Dungeon';
-    font-size: 40px;
-    color: #fff;
-    background-color: #8B4513;
-    padding: 5px 10px;
-    border: none;
-    cursor: pointer;
-    text-align: center;
-    box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
-    margin-top: 2em;
-  }
+
+#next-button:active {
+    box-shadow: 
+    1px 1px 0px #000000,
+    2px 2px 0px #000000,
+    3px 3px 0px #000000;
+    transform: translateY(6px) translateX(6px);
+}
+
+#begin-button {
+  margin-top: 5em;
+  font-family: 'Dungeon';
+  padding: 10px 20px;
+  background-color: #FF0000;
+  border: 3px solid #000000;
+  color: #FFFFFF;
+  text-decoration: none;
+  font-size: 16px;
+  box-shadow: 
+      3px 3px 0px #000000,
+      6px 6px 0px #000000,
+      9px 9px 0px #000000;
+}
+
+
+#begin-button:active {
+  box-shadow: 
+  1px 1px 0px #000000,
+  2px 2px 0px #000000,
+  3px 3px 0px #000000;
+  transform: translateY(6px) translateX(6px);
+}
 
 
   #game-over {
@@ -181,9 +204,9 @@ body, html {
     overflow-y: hidden;
     padding: 15px;
     font-family: 'Dungeon';
-    font-size: 36px;
+    font-size: 18px;
     text-align: center;
-    line-height: 1.2
+    line-height: 2;
   }
 
   #game-over h1 {
@@ -191,77 +214,82 @@ body, html {
     margin-bottom:20px;
   }
 
-  #restart-button {
-    margin:auto;
-    display:flex;
-    width:5em;
-    justify-content:center;
+  #restart-button{
+    margin-top: 5em;
     font-family: 'Dungeon';
-    font-size: 40px;
-    color: #fff;
-    background-color: #8B4513;
-    padding: 5px 10px;
-    border: none;
-    cursor: pointer;
-    text-align: center;
-    box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
-  }
-
-  #restart-button:hover {
-    background-color: #A0522D;
-  }
+    padding: 10px 20px;
+    background-color: #FF0000;
+    border: 3px solid #000000;
+    color: #FFFFFF;
+    text-decoration: none;
+    font-size: 16px;
+    box-shadow: 
+        3px 3px 0px #000000,
+        6px 6px 0px #000000,
+        9px 9px 0px #000000;
+}
 
 
-  @media screen and (max-width: 450px) {
+#restart-button:active {
+    box-shadow: 
+    1px 1px 0px #000000,
+    2px 2px 0px #000000,
+    3px 3px 0px #000000;
+    transform: translateY(6px) translateX(6px);
+}
+
+
+  @media screen and (max-width: 600px) {
     
     #menu {
-      font-size: 24px;
+      font-size: 14px;
       width: 60vw;
     }
 
     #main-menu1 {
-      height: 98vh;
-      width: 95vw;
-      padding: 0em;
-      overflow: hidden;
+      border: none;
+      height: 100vh;
+      width: 100%;
+      overflow-x: hidden;
     }
 
     #main-menu2 {
-      height: 98vh;
-      width: 95vw;
-      padding: 0em;
-      overflow: hidden;
+      height: 100vh;
+      width: 100vw;
+      overflow-x: hidden;
     }
 
     #description1 {
-      padding: 1em;
-      font-size: 1.5em;
+      padding-top: 5em;
+      padding-bottom: 5em;
+      font-size: 14px;
       width: 80vw;
       margin: auto;
     }
 
     #description2 {
       top: 100%;
-      padding: 1em;
-      font-size: 1.75em;
+      padding-top: 5em;
+      font-size: 14px;
       width: 80vw;
       margin: auto;
     }
 
     #next-button {
+      margin-top: -10em;
+      margin-bottom: 5em;
       width: 30vw;
-      margin-top: 0em;
     }
 
     #begin-button {
+      margin-top: 5em;
       width: 30vw;
-      margin-top: 0em;
     }
 
     #game-over {
       width: 60vw;
-      height: 50vh;
-      font-size: 24px;
+      height: 55vh;
+      font-size: 14px;
     }
 
     #restart-button {
@@ -269,21 +297,33 @@ body, html {
       width: 50vw;
     }
 
-    #close-button2 {
+    #close-button2{
+      margin-top: 5em;
       font-family: 'Dungeon';
-      font-size: 40px;
-      color: #fff;
-      background-color: #8B4513;
-      padding: 5px 10px;
-      border: none;
-      cursor: pointer;
-      text-align: center;
-      box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
-    }
+      padding: 10px 20px;
+      background-color: #FF0000;
+      border: 3px solid #000000;
+      color: #FFFFFF;
+      text-decoration: none;
+      font-size: 16px;
+      box-shadow: 
+          3px 3px 0px #000000,
+          6px 6px 0px #000000,
+          9px 9px 0px #000000;
+  }
+  
+  
+  #close-button2:active {
+      box-shadow: 
+      1px 1px 0px #000000,
+      2px 2px 0px #000000,
+      3px 3px 0px #000000;
+      transform: translateY(6px) translateX(6px);
+  }
     
     #menu-title {
       font-family: 'Dungeon';
-      font-size: 36px;
+      font-size: 16px;
       font-weight: bold;
       padding-bottom: 0.5em;
     }
