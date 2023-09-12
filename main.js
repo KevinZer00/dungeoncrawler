@@ -315,7 +315,7 @@ class MyGame extends Phaser.Scene {
       let menuLink = '';
       switch (chestNum) {
         case 1:
-          menuText = '<p>You have opened chest 1!</p> This is a project that was built for a client. It is a website for a personal trainer. It utilizes primarily HTML and CSS for the design and layout and JavaScript for the email functionality. The site also integrates the Calendly widget to allow users to view/book available appointments. It is responsive for a wide variety of screen sizes.<p>'
+          menuText = '<p>You have opened chest 1!</p> This is a mock site built for a personal trainer. It utilizes primarily HTML and CSS for the design and layout and JavaScript for the email functionality. The site also integrates the Calendly widget to allow users to view/book available appointments. It is responsive for a wide variety of screen sizes.<p>'
           menuLink = '<p><a href = "https://pushpastlimits.com/" target = "_blank">Push Past Limits</a><p>'        
           break;
         case 2:
